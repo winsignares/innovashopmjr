@@ -1,0 +1,204 @@
+body {
+    font-family: OverpassMedium;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+.container {
+    display: flex;
+    width: 100%; /* Cambiado */
+    height: 100vh;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.left-section {
+    flex: 1;
+    background-color: #DDDFE5;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative; /* Added position relative */
+}
+
+@font-face {
+    font-family: OverpassMedium;
+    src: url('../fonts/Overpass/static/Overpass-Medium.ttf'); /* Ruta relativa al archivo de la fuente */
+}
+
+@font-face {
+    font-family: OverpassExtraLight;
+    src: url('../fonts/Overpass/static/Overpass-ExtraLight.ttf'); /* Ruta relativa al archivo de la fuente */
+}
+
+@font-face {
+    font-family: OverpassThin;
+    src: url('../fonts/Overpass/static/Overpass-Thin.ttf'); /* Ruta relativa al archivo de la fuente */
+}
+
+@font-face {
+    font-family: OverpassNormal;
+    src: url('../fonts/Overpass/static/Overpass-Regular.ttf'); /* Ruta relativa al archivo de la fuente */
+}
+
+.left-section .bottom-text {
+    /* Usa la fuente personalizada */
+    position: absolute;
+    font-size: 100px;
+    bottom: 125px; /* Ajusta según sea necesario */
+}
+
+.logo-box{
+    
+    width: 50%;
+    height: 20%;
+    background: black;
+
+}
+
+
+.right-section {
+    width: 32%;
+    position: relative;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
+}
+
+.options{
+    width: 104%;
+    padding: 10px;
+    height: 68px;
+    margin-bottom: 20px;
+    border: 1px solid #B5B5B5;
+    border-radius: 54px;
+    background-color: #F9F9F9;
+    color: #B0B0B0;
+    font-family: OverpassExtraLight;
+    text-align: center; /* Centra el texto horizontalmente */
+
+    
+}
+/* Estilo para el módulo seleccionado */
+.modulo-box.seleccionado {
+    background-color: #000000; /* Cambia el color de fondo */
+    font-weight: bold; /* Cambia el estilo de fuente */
+    /* Agrega cualquier otro estilo deseado para el módulo seleccionado */
+}
+
+.modulo-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100px;
+
+}
+
+a{
+    text-decoration: none;
+    color: black; /* Cambia el color del texto a negro */
+}
+
+
+.modulo-box img {
+    width: 20px; /* Ajusta el tamaño del icono según sea necesario */
+    margin-right: 10px; /* Espacio entre el icono y el texto */
+}
+
+
+.perfil-box {
+    width: 29%;
+    height: 35%;
+    border-radius: 50%;
+    background-color: #ccc;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+.bottom-left {
+    position: fixed; /* Establece la posición fija */
+    bottom: 20px; /* Ajusta la distancia desde la parte inferior */
+    left: 20px; /* Ajusta la distancia desde el lado izquierdo */
+}
+
+.salir {
+    /* Estilos adicionales para el botón de salida */
+    background-color: #ccc; /* Color de fondo */
+    padding: 10px 20px; /* Espacio interno */
+    border-radius: 5px; /* Bordes redondeados */
+    text-decoration: none; /* Quita el subrayado del enlace */
+    color: #333; /* Color del texto */
+}
+
+.perfil-box img {
+    width: 100%; /* Asegura que la imagen ocupe todo el espacio disponible dentro del círculo */
+    height: auto; /* Ajusta la altura automáticamente para mantener la relación de aspecto */
+    border-radius: 50%; /* Hace que la imagen sea un círculo */
+    
+}
+
+/* Agrega una transición a la propiedad transform */
+.modulo-box {
+    transition: transform 0.3s ease;
+}
+
+/* Define una transformación para que los módulos se muevan hacia abajo */
+.modulo-box.deslizar {
+    transform: translateY(20px); /* Puedes ajustar la cantidad de desplazamiento aquí */
+}
+
+/* Agrega un color de fondo diferente para resaltar el módulo seleccionado */
+.modulo-box.seleccionado {
+    background-color: rgba(221, 226, 238, 0.2); /* Color de fondo con opacidad */
+}
+
+.panel-box {
+    width: 100%;
+    height: 80%;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    display: flex; /* Establece el contenedor como un flexbox */
+    flex-direction: column; /* Alinea los elementos verticalmente */
+    justify-content: center; /* Centra los elementos verticalmente */
+    align-items: center; /* Centra los elementos horizontalmente */
+}
+
+.panel-box h2 {
+    margin-bottom: -6px;
+    text-align: center;
+}
+
+
+.title{
+    font-size:150px;
+    font-size: 80px;
+    color:#494E59;
+}
+.Name{
+    font-family: OverpassNormal;
+    text-align: center;
+    margin: 0px;
+}
+
+.Rol{
+    font-family: OverpassThin;
+    text-align: center;
+    margin: 0px;
+    margin-bottom: 10%;
+}
+
+
