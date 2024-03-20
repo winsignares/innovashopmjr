@@ -17,16 +17,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.left-section {
-    flex: 1;
-    background-color: #DDDFE5;
-    border-top-right-radius: 70px;
-    border-bottom-right-radius: 70px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative; /* Added position relative */
-}
+
 
 @font-face {
     font-family: OverpassMedium;

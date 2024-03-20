@@ -1,0 +1,116 @@
+@font-face {
+    font-family: OverpassMedium;
+    src: url('../fonts/Overpass/static/Overpass-Medium.ttf'); /* Ruta relativa al archivo de la fuente */
+}
+
+@font-face {
+    font-family: OverpassExtraLight;
+    src: url('../fonts/Overpass/static/Overpass-ExtraLight.ttf'); /* Ruta relativa al archivo de la fuente */
+}
+
+
+.left-section {
+    flex: 1;
+    background-color: #DDDFE5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    flex-direction: column; /* Ajustar la dirección de flexión a column */
+}
+
+.content {
+    display: flex;
+    width: 97%;
+    border-top-left-radius: 20px;
+    background: #95A2B5;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 20px;
+}
+.counter {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.counter-item {
+    margin-right: 20px; /* Ajusta el espacio entre los elementos */
+}
+
+.font {
+    font-size: 20px;
+}
+
+.title {
+    text-align: left;
+    margin: 29px;
+    color:#FFFFFF;
+    
+}
+
+.counter {
+    text-align: right;
+    margin: 29px;
+  
+    color:#FFFFFF;
+}
+
+
+.empty-div {
+    flex: 1; /* Fill remaining space */
+    width: 100%;
+    height: 100%;
+}
+
+
+
+.empty-div {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; /* Alinear al principio */
+    align-items: stretch; /* Estirar para llenar el contenedor */
+}
+
+.search-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc; /* Línea divisoria entre el buscador y la tabla */
+}
+
+.search-container input[type="text"] {
+    width: 70%; /* Ajusta el ancho del buscador según sea necesario */
+}
+
+.table-container {
+    flex: 1; /* El div de la tabla ocupará el espacio restante */
+    overflow: auto; /* Añadir scroll si la tabla es muy larga */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ccc; /* Borde para las celdas de la tabla */
+    padding: 8px;
+    text-align: left;
+}
+
+button {
+    padding: 8px 16px;
+    background-color: #007bff; /* Color de fondo del botón */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3; /* Color de fondo del botón al pasar el mouse */
+}
