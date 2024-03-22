@@ -59,10 +59,13 @@ body {
     
     width: 50%;
     height: 20%;
-    background: black;
 
 }
 
+.logo-box img {
+    width: 100%; /* Ajusta la anchura de la imagen al 100% del contenedor */
+    height: auto; /* Ajusta la altura automáticamente para mantener la proporción */
+}
 
 .right-section {
     width: 32%;
@@ -117,17 +120,18 @@ a{
 
 
 .perfil-box {
-    width: 29%;
-    height: 35%;
-    border-radius: 50%;
-    background-color: #ccc;
-    overflow: hidden;
+    width: 100px; /* Ancho predeterminado de 100px */
+    height: 250px; /* Alto predeterminado de 100px */
+    border-radius: 50%; /* Hace que el perfil-box sea circular */
+    background-color: #ccc; /* Color de fondo */
+    overflow: hidden; /* Evita que la imagen sobresalga del perfil-box */
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 50px;
     margin-bottom: 50px;
 }
+
 .bottom-left {
     position: fixed; /* Establece la posición fija */
     bottom: 20px; /* Ajusta la distancia desde la parte inferior */

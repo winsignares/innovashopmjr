@@ -3,13 +3,71 @@
 <div class="left-section">
     <div class="content">
         <div class="title">
-            <h2 style="font-size: 64PX; margin-left: 40px; margin-bottom: 0px;">INFORMES</h2>
-            <h2 style="font-size: 30PX; margin-left: 40px; margin-top: 0px;">INFORMES</h2>
-        </div> 
+            <h2 style="font-size: 64px; margin-left: 40px; margin-bottom: 0px;">STOCK</h2>
+            <h2 style="font-size: 30px; margin-left: 40px; margin-top: 0px;">STOCK</h2>
+        </div>
     </div>
 
-    
-    <div class="empty-div"></div>
+    <div class="empty-div">
+        <!-- Contenedor para el campo de búsqueda y el selector de columna -->
+        <div class="search-container">
+            <!-- Selector de columna -->
+           
+            <!-- Contenedor para el campo de búsqueda -->
+            <div class="search-input-container">
+                <div class="column-selector-container">
+               
+               
+                <label for="column-selector">Buscar por:</label>
+                <select id="column-selector" >
+                    <!-- Opciones se agregarán aquí con JavaScript -->
+                </select>
+            </div>
+                <!-- Icono de la lupa -->
+                <img src="./static/img/lupa.png" alt="Buscar" id="search-icon" class="search-icon">
+                <!-- Input de búsqueda -->
+                <input type="text" id="search-input" placeholder="">
+            </div>
+            <!-- Botón de crear a la derecha -->
+            <button id="create-button">Crear</button>
+        </div>
+        <!-- Div para la tabla -->
+        <div class="table-container">
+            <table id="stock-table">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Identificación</th>
+                        <th>Nombre</th>
+                        <th>N° Factura</th> 
+                        <th>Estado</th> 
+                        <th>PDF</th> 
+                    </tr>
+                </thead>
+                <tbody id="stock-body">
+                    <!-- Filas de datos se agregarán aquí con JavaScript -->
+                    {% for informes in informes %}
+                    <tr>
+                        <td>{{ informes.ID }}</td>
+                        <td>{{ informes.Identificacion }}</td>
+                        <td>{{ informes.Nombre }}</td>
+                        <td>{{ informes.NFACTURA }}</td>
+                        <td>{{ informes.Estado }}</td>
+                        <td><a href="/pdf"> <button class="action-button"><img src="./static/img/pdf.png" alt="PDF"></button></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <!-- Controles de paginación debajo de la tabla -->
+        <div class="pagination">
+            <button id="prev-page"><img src="./static/img/atras.png" alt="Anterior"></button>
+            <button id="next-page"><img src="./static/img/siguiente.png" alt="Siguiente"></button>
+        </div>
+    </div>
 </div>
+
+<script src="./static/js/pagination.js"></script>
+<script src="./static/js/filter.js"></script>
 </body>
 </html>
