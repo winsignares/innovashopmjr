@@ -50,25 +50,30 @@
                         <th>ACCIONES</th> 
                     </tr>
                 </thead>
+
+
+
                 <tbody id="stock-body">
                     <!-- Filas de datos se agregarán aquí con JavaScript -->
-                    {% for producto in productos %}
+                    {% for i in range(1, 11) %}
                     <tr>
-                        <td>{{ producto.ID }}</td>
-                        <td>{{ producto.CODIGO }}</td>
-                        <td><img src="{{ producto.IMAGEN }}" alt="Imagen de producto"></td>
-                        <td>{{ producto.STOCK }}</td>
-                        <td>{{ producto.PRODUCTO }}</td>
-                        <td>{{ producto.DESCUENTO_TIEMPO }}</td>
-                        <td>{{ producto.PRECIO }}</td>
+                        <td>{{ i }}</td>
+                        <td>CODIGO{{ i }}</td>
+                        <td><img src="imagen{{ i }}.png" alt="Imagen de producto"></td>
+                        <td>STOCK{{ i }}</td>
+                        <td>PRODUCTO{{ i }}</td>
+                        <td>DESCUENTO_TIEMPO{{ i }}</td>
+                        <td>PRECIO{{ i }}</td>
                         <td>
-                           <a href="/eliminar"> <button class="action-button"><img src="./static/img/borrar.png" alt="Eliminar"></button></a> 
-                           <a href="/editar"> <button class="action-button"><img src="./static/img/editar.png" alt="EDITAR"></button></a> 
-                            
+                            <a href="/eliminar"> <button class="action-button"><img src="./static/img/borrar.png" alt="Eliminar"></button></a> 
+                            <a href="/editar"> <button class="action-button"><img src="./static/img/editar.png" alt="EDITAR"></button></a> 
                         </td>
                     </tr>
                     {% endfor %}
                 </tbody>
+                
+
+                
             </table>
         </div>
         <!-- Controles de paginación debajo de la tabla -->

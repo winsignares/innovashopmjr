@@ -47,8 +47,37 @@
                         <th>PDF</th> 
                     </tr>
                 </thead>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <tbody id="stock-body">
                     <!-- Filas de datos se agregarán aquí con JavaScript -->
+                    {% for i in range(10) %}
+                    <tr>
+                        <td>{{ i }}</td> <!-- Puedes usar 'i' como identificador para cada fila -->
+                        <td>Nombre {{ i }}</td> <!-- Ejemplo de datos de nombre basados en 'i' -->
+                        <td>Cotización {{ i }}</td> <!-- Ejemplo de datos de cotización basados en 'i' -->
+                        <td>{{ i }} <!-- Ejemplo de datos de stock basados en 'i' --> <span id="stock-image-{{ i }}" style=" width: 30px; height: 30px;"></span></td>
+                        <td><a href="/pdf"><button class="action-button"><img src="./static/img/pdf.png" alt="PDF"></button></a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+                
+
+<!-- MYSQL
+                <tbody id="stock-body">
+                     Filas de datos se agregarán aquí con JavaScript 
                     {% for stock in stock %}
                     <tr>
                         <td>{{ stock.Identificacion }}</td>
@@ -60,6 +89,9 @@
                     </tr>
                     {% endfor %}
                 </tbody>
+            -->
+
+
             </table>
         </div>
         <!-- Controles de paginación debajo de la tabla -->

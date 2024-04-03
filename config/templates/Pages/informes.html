@@ -44,19 +44,26 @@
                         <th>PDF</th> 
                     </tr>
                 </thead>
+
+
                 <tbody id="stock-body">
                     <!-- Filas de datos se agregarán aquí con JavaScript -->
-                    {% for informes in informes %}
+                    {% for i in range(1, 11) %}
                     <tr>
-                        <td>{{ informes.ID }}</td>
-                        <td>{{ informes.Identificacion }}</td>
-                        <td>{{ informes.Nombre }}</td>
-                        <td>{{ informes.NFACTURA }}</td>
-                        <td>{{ informes.Estado }}</td>
+                        <td>{{ i }}</td>
+                        <td>Identificacion{{ i }}</td>
+                        <td>Nombre{{ i }}</td>
+                        <td>NFACTURA{{ i }}</td>
+                        <td>Estado{{ i }}</td>
                         <td><a href="/pdf"> <button class="action-button"><img src="./static/img/pdf.png" alt="PDF"></button></a></td>
                     </tr>
                     {% endfor %}
                 </tbody>
+                
+
+
+
+
             </table>
         </div>
         <!-- Controles de paginación debajo de la tabla -->
