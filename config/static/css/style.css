@@ -1,0 +1,154 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Establecer altura del cuerpo al 100% */
+}
+
+body {
+    display: flex;
+}
+
+
+
+/* LADO IZQUIERDO */
+nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    flex: 0 0 29%;
+    flex-wrap: nowrap;
+}
+
+.profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.profile img {
+    width: 150%; /* Ancho de la imagen */
+    height: 150px; /* Alto de la imagen */
+    background:black;
+    border-radius: 50%; /* Forma de la imagen */
+    margin-bottom: 10px; /* Espacio bajo la imagen */
+}
+
+.nav-list {
+    width: 100%;
+    MARGIN-TOP: 7%;
+    text-align: center;
+    list-style-type: none; /* Quita los puntos de lista */
+    padding: 0; /* Elimina el espacio interior */
+    margin: 0; /* Elimina el espacio exterior */
+}
+
+.nav-item {
+    height: 29%; /* Altura del elemento li */
+    display: flex; /* Usa flexbox */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    transition: background-color 0.3s; /* Transición para el color de fondo */
+}
+
+.nav-item:hover {
+    background: #DDE2EE; /* Cambia el color de fondo en hover */
+    
+}
+
+
+.container {
+    margin-right: 0px;
+    flex: 0 0 89%; /* El contenido principal ocupa todo el espacio restante */
+    padding: 0px; /* Espaciado interno */
+    border-top-left-radius: 40px; /* Esquina superior derecha redondeada */
+    border-bottom-left-radius: 40px; /* Esquina inferior derecha redondeada */
+    background-color: #DDDFE5; /* Color de fondo rosado */
+}
+
+
+.logo{
+    margin-top: 13%;
+    margin-bottom: 5%; width: 41%;
+}
+
+.nav-item.selected {
+    background-color: #DDE2EE;
+    transition: background-color 0.3s;
+}
+
+
+/* LADO DERECHO */
+/* Estilos para los detalles del módulo */
+.user-details {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+}
+
+.module-details {
+    margin-right: 20px;
+    display: flex;
+    flex-direction: column; /* Alinea los elementos en columna */
+    align-items: center;
+}
+
+/* Estilos para el número */
+.module-details h4 {
+    font-size: 50px;
+    margin-bottom: 5px; /* Espacio entre el número y el texto */
+}
+
+/* LADO DERECHO */
+.top-section {
+    background: #95A2B5;
+    border-top-left-radius: 40px;
+    padding: 50px;
+    color:white;
+}
+
+.user-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.bottom-section {
+    height: auto;
+    padding: 50px;
+}
+
+.search-bar {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-dropdown {
+    margin-right: 10px; /* Ajusta el margen derecho para separar la lista del campo de entrada */
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+#lblText {
+    border: 2.4px solid #A7B1D1;
+    width: 275px;
+    height: 39px;
+    text-align: center;
+    border-radius: 15px;
+    padding-right: 40px; /* Ajusta el padding para dar espacio a la imagen */
+}
+
+.lupa {
+    width: 32px;
+    position: absolute;
+    right: 8px; /* Ajusta la posición de la imagen */
+    top: 50%;
+    transform: translateY(-50%);
+}

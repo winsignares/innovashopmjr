@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+{% block body %}
+<div class="top-section">
+    <!-- Div para los datos del usuario -->
+    <div class="user-info">
+        <div class="name">
+            <h1>EMPRESAS</h1>
+        </div>
+        <!-- Otros datos del usuario a la derecha -->
+        <div class="user-details">
+            <div class="module-details">
+                <div class="data">
+                    <h4></h4>
+                </div>
+                <div class="label">
+                    <p></p>
+                </div>
+            </div>
+            <div class="module-details">
+                <div class="data">
+                    {% set tEmpresas = empresas|length %}
+             
+                    <h4>{{ tEmpresas }}</h4>
+                    
+                </div>
+                <div class="label">
+                    <p>EMPRESAS</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Div para el buscador o cualquier otro contenido -->
+<div class="search-bar">
+    <div class="search-dropdown">
+        <select id="search-select">
+            <option value="codigo">Código</option>
+            <option value="producto">Producto</option>
+            <!-- Agrega más opciones según sea necesario -->
+        </select>
+    </div>
+    <div class="input-wrapper">
+        <input id="lblText" type="text" maxlength="26">
+        <img src="{{url_for('static', filename ='img/lupa.png')}}" class="lupa">
+    </div>
+    <div><button type="submit" id="btnCrear">CREAR</button></div>
+</div>
+
+
+
+
+
+<div class="bottom-section">
+    <table id="stock-table">
+        <!-- Encabezado de la tabla -->
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>NOMBRE</th>
+                <th>MODULOS</th>
+                <th>ESTADO</th> 
+                <th>ACCIONES</th> 
+            
+                
+            </tr>
+        </thead>
+
+        <!-- Cuerpo de la tabla -->
+        <!-- Cuerpo de la tabla -->
+<tbody id="stock-body">
+    <!-- Filas de datos se agregarán aquí con JavaScript -->
+    {% for empresa in empresas %}
+    {% if loop.index % 1 == 0 %} <!-- Agrega un fondo blanco a las filas 1 y 3 -->
+    <tr style="background-color: white;">
+    {% else %}
+    <tr>
+    {% endif %}
+        <td class="empresa-id">{{ empresa.id }}</td>
+        <td>{{ empresa.nombre }}</td>
+        <td class="modulo-buttons">
+            <button class="modulos" title="COTIZACIONES" id="cotizaciones" data-valor="{{empresa.cotizaciones}}" ><img src="{{url_for('static', filename ='img/Modulos/cotizaciones.png')}}" alt=""></button>
+            <button class="modulos" title="CLIENTES" id="clientes" data-valor="{{ empresa.clientes }}"  ><img src="{{url_for('static', filename ='img/Modulos/cliente.png')}}" alt=""></button>
+            <button class="modulos" title="COMPRAS" id="compras" data-valor="{{ empresa.compras }}"><img src="{{url_for('static', filename ='img/Modulos/compras.png')}}" alt=""></button>
+            <button class="modulos" title="INFORMES" id="informes" data-valor="{{ empresa.informes }}"><img src="{{url_for('static', filename ='img/Modulos/informe.png')}}" alt=""></button>
+            <button class="modulos" title="PARAMETROS" id="parametros" data-valor="{{ empresa.parametros }}"><img src="{{url_for('static', filename ='img/Modulos/parametros.png')}}" alt=""></button>
+            <button class="modulos" title="PRODUCTOS" id="productos" data-valor="{{ empresa.productos }}"><img src="{{url_for('static', filename ='img/Modulos/productos.png')}}" alt=""></button>
+            <button class="modulos" title="STOCK" id="stock" data-valor="{{ empresa.stock }}"><img src="{{url_for('static', filename ='img/Modulos/stock.png')}}" alt=""></button>
+            <button class="modulos" title="VENDEDORES" id="vendedores" data-valor="{{ empresa.vendedores }}"><img src="{{url_for('static', filename ='img/Modulos/vendedor.png')}}" alt=""></button>
+            <button class="modulos" title="EMPRESAS" id="empresas" data-valor="{{ empresa.empresas }}"><img src="{{url_for('static', filename ='img/Modulos/empresas.png')}}" alt=""></button>
+        </td>       
+    </td>
+        
+        <td>
+            <button class="estados" disabled data-valor="{{empresa.estado}}"></button>
+        </td>
+        
+        <td>
+            <a href="/eliminar"> <button class="action-button"><img src="{{url_for('static', filename ='img/borrar.png')}}" alt="Eliminar"></button></a> 
+            <a href="/editar"> <button class="action-button"><img src="{{url_for('static', filename ='img/editar.png')}}" alt="EDITAR"></button></a> 
+        </td>
+    </tr>
+    <tr> <!-- Aquí se agrega el espacio -->
+        <td colspan="8">&nbsp;</td> <!-- Colspan para ocupar todas las columnas -->
+    </tr>
+    {% endfor %}
+</tbody>
+    
+    </table>
+    <!-- Paginación -->
+    <div class="pagination">
+        <button id="prev-page"><img src="{{url_for('static', filename ='img/atras.png')}}" alt="Anterior"></button>
+        <button id="next-page"><img src="{{url_for('static', filename ='img/siguiente.png')}}" alt="Siguiente"></button>
+    </div>
+</div>
+
+{% endblock %}

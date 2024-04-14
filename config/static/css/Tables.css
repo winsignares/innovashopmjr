@@ -1,0 +1,85 @@
+.data-row {
+    background: #ffffff; /* Fondo blanco para las filas con datos */
+}
+
+#stock-table {
+    width: 100%;
+    margin: 0 auto; /* Centra la tabla horizontalmente */
+    text-align: center; /* Centra el contenido de las celdas */
+}
+
+/* Estilo básico para la imagen */
+.img-producto {
+    width: 80px;
+    transition: transform 0.3s, box-shadow 0.3s; /* Transición suave al cambiar la escala y la sombra */
+}
+
+/* Efecto de agrandar y sombra al pasar el ratón */
+.img-producto:hover {
+    transform: scale(2.5); /* Aumenta el tamaño al 120% */
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5); /* Agrega una sombra */
+}
+
+
+.action-button {
+    background-color: transparent; /* Hace que el fondo del botón sea transparente */
+    border: none; /* Elimina el borde del botón */
+    padding: 0; /* Elimina el relleno del botón */
+}
+
+.action-button img {
+    width: 24px; /* Establece el ancho de la imagen dentro del botón */
+    height: 24px; /* Establece la altura de la imagen dentro del botón */
+}
+
+.action-button:hover img {
+    transform: scale(1.2); /* Hace que la imagen aumente de tamaño al pasar el ratón sobre el botón */
+    transition: transform 0.3s ease; /* Añade una transición suave */
+}
+
+
+#prev-page{background: none;
+    border: none;}
+#next-page{background: none;
+        border: none;}
+
+
+.pagination button img {
+    width: 30px; /* Establece el ancho de la imagen dentro del botón */
+    height: 30px; /* Establece la altura de la imagen dentro del botón */
+}
+
+.pagination button:hover img {
+    transform: scale(1.2); /* Hace que la imagen aumente de tamaño al pasar el ratón sobre el botón */
+    transition: transform 0.3s ease; /* Añade una transición suave */
+}
+
+.modulos img {
+    width: 30px; /* Ancho deseado para la imagen dentro del botón */
+    height: 30px; /* Alto deseado para la imagen dentro del botón */
+}
+.modulos{
+    border: none;
+    background: none;
+}
+
+
+.estados {
+    width: 15px;
+    height: 15px;
+    border-radius: 50%; /* Hace que el elemento sea un círculo */
+    background-color: green; /* Establece el color de fondo del círculo */
+    border: none;
+}
+
+.activo {
+    background-color: green;
+}
+.inactivo {
+    background-color: red;
+}
+.pendiente {
+    background-color: orange;
+}
+
+
