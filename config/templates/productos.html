@@ -43,7 +43,15 @@
         <input id="lblText" type="text" maxlength="26">
         <img src="{{url_for('static', filename ='img/lupa.png')}}" class="lupa">
     </div>
-    <div><button type="submit" id="btnCrear">CREAR</button></div>
+    <div><input
+        name=""
+        id="btnCrear"
+        class="btn btn-primary"
+        type="button"
+        value="CREAR"
+        onclick="toggleModal()"
+    />
+    </div>
 </div>
 
 
@@ -99,5 +107,37 @@
         <button id="next-page"><img src="{{url_for('static', filename ='img/siguiente.png')}}" alt="Siguiente"></button>
     </div>
 </div>
+<form id="producto_formulario" action="/agregar_producto" method="POST" >
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="toggleModal()">&times;</span>
+            <div class="input-container">
+                <label for="codigo_producto" style="text-align: center;">CÓDIGO</label>
+                <input type="text" id="codigo_producto" name="codigo_producto" placeholder="" required>
+            </div>
+            <div class="input-container">
+                <label for="imagen_producto" style="text-align: center;">IMAGEN</label>
+                <input type="file" id="imagen_producto" name="imagen_producto" accept="image/*" required>
+            </div>
+            <div class="input-container">
+                <label for="stock_producto" style="text-align: center;">STOCK</label>
+                <input type="text" id="descuento_tiempo" name="descuento_tiempo" placeholder="" required>
+            </div>
+            <div class="input-container">
+                <label for="nombre_producto" style="text-align: center;">PRODUCTO</label>
+                <input type="text" id="nombre_producto" name="nombre_producto" placeholder="" required>
+            </div>
+            <div class="input-container">
+                <label for="descuento_tiempo" style="text-align: center;">DESCUENTO/TIEMPO</label>
+                <input type="text" id="descuento_tiempo" name="descuento_tiempo" placeholder="" required>
+            </div>
+            <div class="input-container">
+                <label for="precio_producto" style="text-align: center;">PRECIO</label>
+                <input type="text" id="descuento_tiempo" name="descuento_tiempo" placeholder="" required>
+            </div>
+            <button type="submit" class="submit-button">AGREGAR PRODUCTO</button>
+        </div>
+    </div>
+</form>
 
 {% endblock %}

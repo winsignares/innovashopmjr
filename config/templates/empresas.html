@@ -44,7 +44,15 @@
         <input id="lblText" type="text" maxlength="26">
         <img src="{{url_for('static', filename ='img/lupa.png')}}" class="lupa">
     </div>
-    <div><button type="submit" id="btnCrear">CREAR</button></div>
+    <div><input
+        name=""
+        id="btnCrear"
+        class="btn btn-primary"
+        type="button"
+        value="CREAR"
+        onclick="toggleModal()"
+    />
+    </div>
 </div>
 
 
@@ -113,5 +121,70 @@
         <button id="next-page"><img src="{{url_for('static', filename ='img/siguiente.png')}}" alt="Siguiente"></button>
     </div>
 </div>
+<form id="empresa_formulario" action="/crear_empresa" method="POST">
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="toggleModal()">&times;</span>
+            <div class="input-container">
+                <label for="nombre_empresa" style="text-align: center;">NOMBRE EMPRESA</label>
+                <input type="text" id="nombre_empresa" name="nombre_empresa" placeholder="" required>
+            </div>
+            <div class="input-container">
+                <label for="periodo_actividad" style="text-align: center;">PERIODO DE ACTIVIDAD</label>
+                <input type="text" id="periodo_actividad" name="periodo_actividad" placeholder="" required>
+            </div>
+            <div id="checkboxes" class="checkbox-container">
+               <!-- Div para contener los checkboxes -->
+            <div id="checkboxes" style="display: flex;">
+                <!-- Imágenes de checkbox -->
+                <div class="box-checkbox" >
+                    <img src="{{url_for('static', filename ='img/Modulos/cotizaciones.png')}}" alt="Checkbox" class="checkbox-image">
+                <input type="checkbox" id="aspecto1" name="aspecto1">
+                </div>
+    
+                <div class="box-checkbox" >
+                    <img src="{{url_for('static', filename ='img/Modulos/cliente.png')}}" alt="Checkbox" class="checkbox-image">
+                <input type="checkbox" id="aspecto1" name="aspecto1">
+                </div>
+    
+                <div class="box-checkbox" >
+                    <img src="{{url_for('static', filename ='img/Modulos/informe.png')}}" alt="Checkbox" class="checkbox-image">
+                <input type="checkbox" id="aspecto1" name="aspecto1">
+                </div>
+    
+                <div class="box-checkbox" >
+                    <img src="{{url_for('static', filename ='img/Modulos/parametros.png')}}" alt="Checkbox" class="checkbox-image">
+                <input type="checkbox" id="aspecto1" name="aspecto1">
+                </div>
+                <div class="box-checkbox" >
+                    <img src="{{url_for('static', filename ='img/Modulos/productos.png')}}" alt="Checkbox" class="checkbox-image">
+                <input type="checkbox" id="aspecto1" name="aspecto1">
+                </div>
+                <div class="box-checkbox" >
+                    <img src="{{url_for('static', filename ='img/Modulos/stock.png')}}" alt="Checkbox" class="checkbox-image">
+                <input type="checkbox" id="aspecto1" name="aspecto1">
+                </div>
+                <div class="box-checkbox" >
+                    <img src="{{url_for('static', filename ='img/Modulos/vendedor.png')}}" alt="Checkbox" class="checkbox-image">
+                <input type="checkbox" id="aspecto1" name="aspecto1">
+                </div>
+                <div class="box-checkbox" >
+                    <img src="{{url_for('static', filename ='img/Modulos/empresas.png')}}" alt="Checkbox" class="checkbox-image">
+                <input type="checkbox" id="aspecto1" name="aspecto1">
+                </div>
+                
+            
+        </div>
+            </div>
+            <button type="submit" class="submit-button">CREAR</button>
+        </div>
+    </div>
+</form>
+
+
+
+
+
+  
 
 {% endblock %}

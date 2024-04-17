@@ -51,3 +51,20 @@ def actualizar_empresa():
         # Manejar otras excepciones no esperadas
         return "Error: " + str(e)
 
+
+
+@ruta_Empresas.route('/crear_empresa', methods=['POST'])
+def crear_empresa():
+    try:
+        # Crear una nueva instancia de la clase Empresa con valores predeterminados o nulos
+        nueva_empresa = Empresa(nombre='OLIMPICA', cotizaciones=1,clientes=1,compras=1,informes=1,parametros=1,productos=1,stock=1,vendedores=1,empresas=1,estado='ACTIVO')
+
+        # Agregar la nueva empresa a la sesión y confirmar la transacción en la base de datos
+        bd.session.add(nueva_empresa)
+        bd.session.commit()
+
+        return "Empresa creada correctamente. ID: {}".format(nueva_empresa.id)
+
+    except Exception as e:
+        # Manejar otras excepciones no esperadas
+        return "Error: " + str(e)

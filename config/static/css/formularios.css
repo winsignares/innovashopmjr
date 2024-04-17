@@ -1,0 +1,102 @@
+/* Estilos para el modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+/* Estilos para el contenido del modal */
+.modal-content {
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+    height: auto;
+    margin-top: 20%; /* Ajustar el ancho del modal según sea necesario */
+    margin: auto; /* Centrar horizontalmente */
+    border-radius: 10px; /* Ajustar el radio de borde según sea necesario */
+    display: flex; /* Utilizar flexbox para centrar el contenido */
+    flex-direction: column; /* Apilar elementos verticalmente */
+    align-items: center; /* Centrar horizontalmente */
+}
+
+/* Estilos para el botón de cerrar */
+.close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Estilos para el formulario de la empresa */
+#modal {
+    width: 70.7%;
+    position: absolute;
+    right: 15px;
+    top: 0px;
+    padding: 97px;
+    border-top-left-radius: 40px;
+    border-bottom-left-radius: 40px;
+    left: 29.3%;
+}
+
+.input-container {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"] {
+    height: 50px;
+    border-radius: 20px;
+    border: #D9D9D9 1px solid;
+    padding: 10px;
+}
+
+.checkbox-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.box-checkbox {
+    margin-right: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.checkbox-image {
+    width: 50px;
+    height: 50px;
+}
+
+.submit-button {
+    height: 50px;
+    margin-top: 20px;
+    border-radius: 20px;
+    background-color: #A0B8CA;
+    color: white;
+    border: none;
+    width: 200PX;
+    cursor: pointer;
+}
+
+.submit-button:hover {
+    background-color: #A0B8CA;
+}

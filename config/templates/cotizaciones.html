@@ -10,24 +10,89 @@
         <div class="user-details">
             <div class="module-details">
                 <div class="data">
-                    <h4>0</h4>
+                    <h4></h4>
                 </div>
                 <div class="label">
-                    <p>Usuarios</p>
+                    <p></p>
                 </div>
             </div>
             <div class="module-details">
                 <div class="data">
+                            
                     <h4>0</h4>
                 </div>
                 <div class="label">
-                    <p>Stock</p>
+                    <p>PRODUCTOS AGREGADOS</p>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Div para el buscador o cualquier otro contenido -->
+<div class="search-bar">
+    <div class="search-dropdown">
+        <select id="search-select">
+            <option value="codigo">Código</option>
+            <option value="producto">Producto</option>
+            <!-- Agrega más opciones según sea necesario -->
+        </select>
+    </div>
+    <div class="input-wrapper">
+        <input id="lblText" type="text" maxlength="26">
+        <img src="{{url_for('static', filename ='img/lupa.png')}}" class="lupa">
+    </div>
 
+</div>
+
+
+
+
+
+<div class="bottom-section">
+    <table id="stock-table">
+        <!-- Encabezado de la tabla -->
+        <thead>
+            <tr>
+                <th>PRODUCTO</th>
+                <th>IMAGEN</th>
+                <th>DESCUENTO</th>
+                <th>PRECIO</th>    
+                <th>ACCIONES</th> 
+               
+            </tr>
+        </thead>
+
+        <!-- Cuerpo de la tabla -->
+        <tbody id="stock-body">
+            <!-- Filas de datos se agregarán aquí con JavaScript -->
+            {% for productos in productos %}
+            {% if loop.index % 1 == 0 %} <!-- Agrega un fondo blanco a las filas 1 y 3 -->
+            <tr style="background-color: white;">
+            {% else %}
+            <tr>
+            {% endif %}
+                <td>{{ productos.producto }}</td>
+                <td>{{ productos.imagen }}</td>
+                <td>{{ productos.descuento_tiempo }}</td>
+                <td>{{ productos.precio }}</td>
+                
+                <td>
+                    <a href="/agregar"> <button class="action-button"><img src="{{url_for('static', filename ='img/agregar.png')}}" alt="AGREGAR"></button></a> 
+                    <a href="/quitar"> <button class="action-button"><img src="{{url_for('static', filename ='img/quitar.png')}}" alt="QUITAR"></button></a> 
+                </td>
+            </tr>
+            <tr> <!-- Aquí se agrega el espacio -->
+                <td colspan="8">&nbsp;</td> <!-- Colspan para ocupar todas las columnas -->
+            </tr>
+            {% endfor %}
+        </tbody>     
+    </table>
+    <!-- Paginación -->
+    <div class="pagination">
+        <button id="prev-page"><img src="{{url_for('static', filename ='img/atras.png')}}" alt="Anterior"></button>
+        <button id="next-page"><img src="{{url_for('static', filename ='img/siguiente.png')}}" alt="Siguiente"></button>
+    </div>
+</div>
 
 {% endblock %}

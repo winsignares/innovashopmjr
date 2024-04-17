@@ -1,4 +1,10 @@
 
+
+
+
+
+
+
 document.addEventListener("DOMContentLoaded", function () {
     const lblText = document.getElementById("lblText");
 
@@ -44,3 +50,23 @@ $(document).ready(function() {
 });
 
 
+$(document).ready(function() {
+    $(".crearEmpresa").each(function() {
+        var boton = $(this);
+        boton.click(function() {
+    
+            $.ajax({
+                url: "crear_empresa",
+                method: "POST", 
+                contentType: "application/json", 
+                success: function(respuesta) {
+                    console.log('Actualización exitosa:', respuesta);
+        
+                    
+                },
+        
+            });
+            
+        });
+    });
+});
