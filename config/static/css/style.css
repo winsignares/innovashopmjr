@@ -38,6 +38,7 @@ nav {
 .nav-list {
     width: 100%;
     MARGIN-TOP: 7%;
+    height: 100%;
     text-align: center;
     list-style-type: none; /* Quita los puntos de lista */
     padding: 0; /* Elimina el espacio interior */
@@ -45,7 +46,7 @@ nav {
 }
 
 .nav-item {
-    height: 29%; /* Altura del elemento li */
+    height: 10%; /* Altura del elemento li */
     display: flex; /* Usa flexbox */
     justify-content: center; /* Centra el contenido horizontalmente */
     align-items: center; /* Centra el contenido verticalmente */

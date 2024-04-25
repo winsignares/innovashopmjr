@@ -9,6 +9,11 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+<!-- Incluye la biblioteca Toastr CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+<!-- Incluye la biblioteca Toastr JavaScript -->
+
 
     
 </head>
@@ -18,43 +23,44 @@
         <div class="profile">
             
             <img src="ruta-de-la-foto.jpg" alt="Foto de perfil">
-            <div class="name">Nombre</div>
-            <div class="role">Rol</div>
+            <div class="name">{{ username }}</div>
+            <div class="role" id="{{ rol }}">{{ rol }}</div>
+            <a href="{{ url_for('ruta_Login.logout') }}">Cerrar sesión</a>
         </div>
         <ul class="nav-list">
-          <li class="nav-item">
-            <a class="nav-link" href="/controller/Cotizaciones">Cotizaciones</a>
-        </li>
-          <li class="nav-item">
-              <a class="nav-link" href="/controller/Clientes">Clientes</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="/controller/Compras">Compras</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="/controller/Informes">Informes</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="/controller/Parametros">Parámetros</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="/controller/Productos">Productos</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="/controller/Stock">Stock</a>
-          </li>
-          <li class="nav-item">
-              <a class="nav-link" href="/controller/Vendedores">Vendedores</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/controller/Empresas">Empresas</a>
-        </li>
-      </ul>
+            <li id="cotizacionesNavItem" class="nav-item">
+                <a class="nav-link" href="/controller/Cotizaciones">Cotizaciones</a>
+            </li>
+            <li id="clientesNavItem" class="nav-item">
+                <a class="nav-link" href="/controller/Clientes">Clientes</a>
+            </li>
+            <li id="comprasNavItem" class="nav-item">
+                <a class="nav-link" href="/controller/Compras">Compras</a>
+            </li>
+            <li id="informesNavItem" class="nav-item">
+                <a class="nav-link" href="/controller/Informes">Informes</a>
+            </li>
+            <li id="parametrosNavItem" class="nav-item">
+                <a class="nav-link" href="/controller/Parametros">Parámetros</a>
+            </li>
+            <li id="productosNavItem" class="nav-item">
+                <a class="nav-link" href="/controller/Productos">Productos</a>
+            </li>
+            <li id="stockNavItem" class="nav-item">
+                <a class="nav-link" href="/controller/Stock">Stock</a>
+            </li>
+            <li id="vendedoresNavItem" class="nav-item">
+                <a class="nav-link" href="/controller/Vendedores">Vendedores</a>
+            </li>
+            <li id="empresasNavItem" class="nav-item">
+                <a class="nav-link" href="/controller/Empresas">Empresas</a>
+            </li>
+        </ul>
       
     </nav>
 
     <div class="container">
-      
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> 
       <link rel="stylesheet" href="{{url_for('static', filename ='css/Tables.css')}}">
       <link rel="stylesheet" href="{{url_for('static', filename ='css/Cotizaciones.css')}}">
@@ -65,6 +71,7 @@
       <script src="{{url_for('static', filename ='js/estados.js')}}"></script>
       <script src="{{url_for('static', filename ='js/cotizacionespg.js')}}"></script>
       <script src="{{url_for('static', filename ='js/formflotante.js')}}"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
       {% block body %}
         {% endblock %}
     </div>
@@ -72,3 +79,42 @@
 
 </body>
 </html>
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    var rol = document.getElementById("{{ rol }}").innerText.trim();
+
+    // Ocultar elementos basados en el rol del usuario
+    if (rol === 'ADMIN') {
+        ocultarElemento('cotizacionesNavItem');
+        ocultarElemento('clientesNavItem');
+        ocultarElemento('comprasNavItem');
+        ocultarElemento('informesNavItem');
+        ocultarElemento('productosNavItem');
+        ocultarElemento('stockNavItem');
+        ocultarElemento('vendedoresNavItem');
+    } else if (rol === 'VENDEDOR') {
+        ocultarElemento('cotizacionesNavItem');
+        ocultarElemento('informesNavItem');
+        ocultarElemento('stockNavItem');
+        ocultarElemento('parametrosNavItem');
+        ocultarElemento('vendedoresNavItem');
+        ocultarElemento('empresasNavItem');
+    } else if (rol === 'EMPRESA') {
+        
+        ocultarElemento('empresasNavItem');
+    }
+});
+
+function ocultarElemento(idElemento) {
+    var elemento = document.getElementById(idElemento);
+    if (elemento) {
+        elemento.style.display = 'none';
+    }
+}
+
+
+
+
+ 
+</script>

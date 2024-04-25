@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, render_template, request
+from flask import Blueprint, Flask, render_template, request,session,redirect,url_for
 from config.db import bd, ma, app
 from models.ProductosModels import Productos, ProductoSchema 
 
@@ -10,6 +10,16 @@ ruta_Productos = Blueprint("ruta_Productos", __name__)
 
 @ruta_Productos.route('/Productos')
 def indexProductos():
-    productos = Productos.query.all()
-    return render_template("Productos.html", productos = productos)
+
+    if 'username' in session:
+        # Si hay una sesión activa, renderizar la página de diseño con el nombre de usuario
+        username = session['username']
+        rol = session['rol']
+        productos = Productos.query.all()
+        return render_template("Productos.html", productos=productos,username=username, rol = rol)
+    else:
+        # Si no hay una sesión activa, redirigir al usuario al inicio de sesión
+        return redirect(url_for('ruta_Login.indexLogin'))  
+    
+
 

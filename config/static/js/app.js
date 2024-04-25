@@ -70,3 +70,33 @@ $(document).ready(function() {
         });
     });
 });
+
+
+
+
+function LoginUser() {
+    let userId = document.getElementById("idUser").value;
+    let userPass = document.getElementById("passUser").value;
+    let endpoint = "validate_user";
+    
+    axios.post(endpoint, {
+        'user': userId,
+        'password': userPass
+    })
+    .then(function (response) {
+        if (response.data.success) {
+            toastr.success(response.data.message, "Success");
+            setTimeout(function() {
+                window.location.href = "/controller/Layout";
+            }, 2000); // Espera 2 segundos (2000 milisegundos) antes de redirigir
+        } else {
+            toastr.error(response.data.message, "Error");
+            
+        }
+    })
+    .catch(function (error) {
+        console.error('Error validating user:', error);
+    });
+}
+
+

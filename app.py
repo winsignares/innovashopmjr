@@ -12,6 +12,7 @@ from controllers.StockController import ruta_Stock
 from controllers.VendedoresController import ruta_Vendedores
 from controllers.EmpresasController import ruta_Empresas
 from controllers.LoginController import ruta_Login
+from controllers.layoutController import ruta_Layout
 
 app.register_blueprint(ruta_Clientes, url_prefix="/controller")
 app.register_blueprint(ruta_cotizaciones, url_prefix="/controller")
@@ -23,10 +24,11 @@ app.register_blueprint(ruta_Stock, url_prefix="/controller")
 app.register_blueprint(ruta_Vendedores, url_prefix="/controller")
 app.register_blueprint(ruta_Empresas, url_prefix="/controller")
 app.register_blueprint(ruta_Login, url_prefix="/controller")
+app.register_blueprint(ruta_Layout, url_prefix="/controller")
 
 @app.route('/', methods=['GET'])
 def index():
-    return render_template("layout.html") 
+    return render_template("Login.html") 
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
