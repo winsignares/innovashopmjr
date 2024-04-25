@@ -24,7 +24,7 @@ def validate_user():
             session['rol'] = user.rol
             return jsonify({'success': True, 'message': 'Inicio de sesión exitoso.'})
         else:
-            return jsonify({'success': False, 'message': 'Contraseña incorrecta.'})
+            return jsonify({'success': False, 'message': 'ErrorPass'})
     else:
         return jsonify({'success': False, 'message': 'Usuario no encontrado.' })
 

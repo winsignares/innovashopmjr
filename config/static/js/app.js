@@ -75,8 +75,10 @@ $(document).ready(function() {
 
 
 function LoginUser() {
-    let userId = document.getElementById("idUser").value;
-    let userPass = document.getElementById("passUser").value;
+    let userIdInput = document.getElementById("idUser");
+    let userPassInput = document.getElementById("passUser");
+    let userId = userIdInput.value;
+    let userPass = userPassInput.value;
     let endpoint = "validate_user";
     
     axios.post(endpoint, {
@@ -86,17 +88,37 @@ function LoginUser() {
     .then(function (response) {
         if (response.data.success) {
             toastr.success(response.data.message, "Success");
+            userIdInput.style.border = "1px solid green";
+            userIdInput.style.backgroundColor = "rgba(0, 255, 0, 0.1)"; // Fondo verde con opacidad
+            userPassInput.style.border = "1px solid green";
+            userPassInput.style.backgroundColor = "rgba(0, 255, 0, 0.1)"; // Fondo verde con opacidad
             setTimeout(function() {
                 window.location.href = "/controller/Layout";
-            }, 2000); // Espera 2 segundos (2000 milisegundos) antes de redirigir
+            }, 2000);
         } else {
-            toastr.error(response.data.message, "Error");
-            
+            if (response.data.message === 'ErrorPass') {
+                userIdInput.style.border = "1px solid green";
+                userIdInput.style.backgroundColor = "rgba(0, 255, 0, 0.1)"; // Fondo verde con opacidad
+                userPassInput.style.border = "1px solid red";
+                userPassInput.style.backgroundColor = "rgba(255, 0, 0, 0.1)"; // Fondo rojo con opacidad
+                
+                // Borra el valor del campo de contraseña
+                userPassInput.value = "";
+                
+                toastr.error('Contraseña Incorrecta', "Error");
+            } else {
+                userIdInput.value ='';
+                userPassInput.value = "";
+                userIdInput.style.border = "1px solid red";
+                userIdInput.style.backgroundColor = "rgba(255, 0, 0, 0.1)";
+                userPassInput.style.border = "1px solid red";
+                userPassInput.style.backgroundColor = "rgba(255, 0, 0, 0.1)";
+                toastr.error('Usuario no existe', "Error");
+            }
         }
     })
     .catch(function (error) {
         console.error('Error validating user:', error);
     });
 }
-
 

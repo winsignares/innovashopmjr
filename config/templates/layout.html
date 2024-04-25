@@ -25,38 +25,44 @@
             <img src="ruta-de-la-foto.jpg" alt="Foto de perfil">
             <div class="name">{{ username }}</div>
             <div class="role" id="{{ rol }}">{{ rol }}</div>
-            <a href="{{ url_for('ruta_Login.logout') }}">Cerrar sesión</a>
+            
         </div>
         <ul class="nav-list">
             <li id="cotizacionesNavItem" class="nav-item">
-                <a class="nav-link" href="/controller/Cotizaciones">Cotizaciones</a>
+                <div ><img src="{{url_for('static', filename ='img/Modulos/cotizaciones.png')}}" alt=""> </div>
+                <div ><a class="nav-link" href="/controller/Cotizaciones">Cotizaciones</a> </div>
             </li>
             <li id="clientesNavItem" class="nav-item">
-                <a class="nav-link" href="/controller/Clientes">Clientes</a>
+                <div><img src="{{url_for('static', filename ='img/Modulos/cliente.png')}}" alt=""></div>
+                <div> <a class="nav-link" href="/controller/Clientes">Clientes</a></div>
             </li>
             <li id="comprasNavItem" class="nav-item">
-                <a class="nav-link" href="/controller/Compras">Compras</a>
+                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/compras.png')}}" alt=""> </div> <div><a class="nav-link" href="/controller/Compras">Compras</a></div>
             </li>
             <li id="informesNavItem" class="nav-item">
-                <a class="nav-link" href="/controller/Informes">Informes</a>
+                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/informe.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/Informes">Informes</a></div>
             </li>
             <li id="parametrosNavItem" class="nav-item">
-                <a class="nav-link" href="/controller/Parametros">Parámetros</a>
+                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/parametros.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/Parametros">Parámetros</a></div>
             </li>
             <li id="productosNavItem" class="nav-item">
-                <a class="nav-link" href="/controller/Productos">Productos</a>
+                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/productos.png')}}" alt="">  </div></div><a class="nav-link" href="/controller/Productos">Productos</a></div>
             </li>
             <li id="stockNavItem" class="nav-item">
-                <a class="nav-link" href="/controller/Stock">Stock</a>
+                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/stock.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/Stock">Stock</a></div>
             </li>
             <li id="vendedoresNavItem" class="nav-item">
-                <a class="nav-link" href="/controller/Vendedores">Vendedores</a>
+                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/vendedor.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/Vendedores">Vendedores</a></div>
             </li>
             <li id="empresasNavItem" class="nav-item">
-                <a class="nav-link" href="/controller/Empresas">Empresas</a>
+                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/empresas.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/Empresas">Empresas</a></div>
             </li>
+           
         </ul>
-      
+    <div class="logout"> 
+    <div class="box_logout">
+        <img src="{{url_for('static', filename ='img/logout.png')}}" alt=""><a href="{{ url_for('ruta_Login.logout') }}">Cerrar sesión</a>
+    </div></div>
     </nav>
 
     <div class="container">
@@ -74,6 +80,7 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
       {% block body %}
         {% endblock %}
+        
     </div>
 <!-- Agrega DataTables.js y jQuery al final del archivo -->
 
