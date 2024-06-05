@@ -14,7 +14,7 @@
 
 <!-- Incluye la biblioteca Toastr JavaScript -->
 
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     
 </head>
 <body>
@@ -23,45 +23,45 @@
         <div class="profile">
             
             <img src="ruta-de-la-foto.jpg" alt="Foto de perfil">
-            <div class="name">{{ username }}</div>
-            <div class="role" id="{{ rol }}">{{ rol }}</div>
-            
+            <div class="name">{{ session.username }}</div>
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><strong id="rol">{{ session.rol }}</strong></span>
+            <span class="mr-2 d-none d-lg-inline text-gray-600 small"><strong id="empresa">{{ session.empresa }}</strong></span>
         </div>
         <ul class="nav-list">
             <li id="cotizacionesNavItem" class="nav-item">
                 <div ><img src="{{url_for('static', filename ='img/Modulos/cotizaciones.png')}}" alt=""> </div>
-                <div ><a class="nav-link" href="/controller/Cotizaciones">Cotizaciones</a> </div>
+                <div ><a class="nav-link" href="/controller/cotizaciones">Cotizaciones</a> </div>
             </li>
             <li id="clientesNavItem" class="nav-item">
                 <div><img src="{{url_for('static', filename ='img/Modulos/cliente.png')}}" alt=""></div>
-                <div> <a class="nav-link" href="/controller/Clientes">Clientes</a></div>
+                <div> <a class="nav-link" href="/controller/clientes">Clientes</a></div>
             </li>
-            <li id="comprasNavItem" class="nav-item">
-                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/compras.png')}}" alt=""> </div> <div><a class="nav-link" href="/controller/Compras">Compras</a></div>
-            </li>
+
             <li id="informesNavItem" class="nav-item">
-                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/informe.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/Informes">Informes</a></div>
+                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/informe.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/informe">Informes</a></div>
             </li>
             <li id="parametrosNavItem" class="nav-item">
-                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/parametros.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/Parametros">Parámetros</a></div>
+                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/parametros.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/parametros">Parámetros</a></div>
             </li>
             <li id="productosNavItem" class="nav-item">
-                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/productos.png')}}" alt="">  </div></div><a class="nav-link" href="/controller/Productos">Productos</a></div>
+                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/productos.png')}}" alt="">  </div></div><a class="nav-link" href="/controller/productos">Productos</a></div>
             </li>
-            <li id="stockNavItem" class="nav-item">
-                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/stock.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/Stock">Stock</a></div>
-            </li>
+        
             <li id="vendedoresNavItem" class="nav-item">
-                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/vendedor.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/Vendedores">Vendedores</a></div>
+                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/vendedor.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/vendedores">Vendedores</a></div>
             </li>
             <li id="empresasNavItem" class="nav-item">
-                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/empresas.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/Empresas">Empresas</a></div>
+                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/empresas.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/empresa">Empresas</a></div>
+            </li>
+
+            <li id="ConsultarClienteNavItem" class="nav-item">
+                <div class="box-center"><img src="{{url_for('static', filename ='img/Modulos/cliente.png')}}" alt="">  </div> </div><a class="nav-link" href="/controller/consultar">Consultar cliente</a></div>
             </li>
            
         </ul>
     <div class="logout"> 
     <div class="box_logout">
-        <img src="{{url_for('static', filename ='img/logout.png')}}" alt=""><a href="{{ url_for('ruta_Login.logout') }}">Cerrar sesión</a>
+        <img src="{{url_for('static', filename ='img/logout.png')}}" alt=""><a href="/logout">Cerrar sesión</a>
     </div></div>
     </nav>
 
@@ -78,6 +78,24 @@
       <script src="{{url_for('static', filename ='js/cotizacionespg.js')}}"></script>
       <script src="{{url_for('static', filename ='js/formflotante.js')}}"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+      <script src="../static/js/producto.js"></script>
+      <script src="../static/js/parametros.js"></script>
+      <script src="../static/js/clientes.js"></script>
+      <script src="../static/js/cotizaciones.js"></script>
+      <script src="../static/js/empresas.js"></script>
+      <script src="../static/js/informes.js"></script>
+      <script src="../static/js/stock.js"></script>
+      <script src="../static/js/vendedores.js"></script>
+      <script src="../static/js/consultar.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+      <!-- SweetAlert2 CSS -->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.3.1/jspdf.umd.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+      
+
+<!-- SweetAlert2 JS -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
       {% block body %}
         {% endblock %}
         
@@ -89,7 +107,8 @@
 <script>
 
 document.addEventListener("DOMContentLoaded", function () {
-    var rol = document.getElementById("{{ rol }}").innerText.trim();
+    let rol = document.getElementById("rol").innerText;
+    console.log(rol);
 
     // Ocultar elementos basados en el rol del usuario
     if (rol === 'ADMIN') {
@@ -100,6 +119,9 @@ document.addEventListener("DOMContentLoaded", function () {
         ocultarElemento('productosNavItem');
         ocultarElemento('stockNavItem');
         ocultarElemento('vendedoresNavItem');
+        ocultarElemento('parametrosNavItem');
+        ocultarElemento('ConsultarClienteNavItem');
+
     } else if (rol === 'VENDEDOR') {
         ocultarElemento('cotizacionesNavItem');
         ocultarElemento('informesNavItem');
@@ -107,6 +129,7 @@ document.addEventListener("DOMContentLoaded", function () {
         ocultarElemento('parametrosNavItem');
         ocultarElemento('vendedoresNavItem');
         ocultarElemento('empresasNavItem');
+        
     } else if (rol === 'EMPRESA') {
         
         ocultarElemento('empresasNavItem');

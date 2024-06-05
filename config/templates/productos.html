@@ -32,13 +32,7 @@
 
 <!-- Div para el buscador o cualquier otro contenido -->
 <div class="search-bar">
-    <div class="search-dropdown">
-        <select id="search-select">
-            <option value="codigo">Código</option>
-            <option value="producto">Producto</option>
-            <!-- Agrega más opciones según sea necesario -->
-        </select>
-    </div>
+    
     <div class="input-wrapper">
         <input id="lblText" type="text" maxlength="26">
         <img src="{{url_for('static', filename ='img/lupa.png')}}" class="lupa">
@@ -68,7 +62,6 @@
                 <th>IMAGEN</th>
                 <th>STOCK</th> 
                 <th>PRODUCTO</th> 
-                <th>DESCUENTO/TIEMPO</th> 
                 <th>PRECIO</th> 
                 <th>ACCIONES</th> 
             </tr>
@@ -88,11 +81,11 @@
                 <td><img src="{{url_for('static', filename ='img/{{ productos.id }}.jpg')}}" alt="Imagen de producto" class="img-producto"></td>
                 <td>{{ productos.stock }}</td>
                 <td>{{ productos.producto }}</td>
-                <td>{{ productos.descuento_tiempo }}</td>
-                <td>{{ productos.precio }}</td>
+             
+                <td>{{ productos.precioFinal }}</td>
                 <td>
-                    <a href="/eliminar"> <button class="action-button"><img src="{{url_for('static', filename ='img/borrar.png')}}" alt="Eliminar"></button></a> 
-                    <a href="/editar"> <button class="action-button"><img src="{{url_for('static', filename ='img/editar.png')}}" alt="EDITAR"></button></a> 
+                     <button class="action-button btnEliminarProducto" onclick="EliminarProducto('{{ productos.id }}')"  ><img src="{{url_for('static', filename ='img/borrar.png')}}" alt="Eliminar">
+                     <button class="action-button btnEditarProducto"  data-id="{{ productos.id }}" data-producto="{{ productos.producto }}" data-stock="{{ productos.stock }}" data-precio="{{ productos.precioFinal }}" onclick="mostrarFormularioEditar()"><img src="{{url_for('static', filename ='img/editar.png')}}" alt="EDITAR">
                 </td>
             </tr>
             <tr> <!-- Aquí se agrega el espacio -->
@@ -107,37 +100,39 @@
         <button id="next-page"><img src="{{url_for('static', filename ='img/siguiente.png')}}" alt="Siguiente"></button>
     </div>
 </div>
-<form id="producto_formulario" action="/agregar_producto" method="POST" >
     <div id="modal" class="modal">
         <div class="modal-content">
-            <span class="close" onclick="toggleModal()">&times;</span>
-            <div class="input-container">
-                <label for="codigo_producto" style="text-align: center;">CÓDIGO</label>
-                <input type="text" id="codigo_producto" name="codigo_producto" placeholder="" required>
-            </div>
-            <div class="input-container">
-                <label for="imagen_producto" style="text-align: center;">IMAGEN</label>
-                <input type="file" id="imagen_producto" name="imagen_producto" accept="image/*" required>
-            </div>
-            <div class="input-container">
-                <label for="stock_producto" style="text-align: center;">STOCK</label>
-                <input type="text" id="descuento_tiempo" name="descuento_tiempo" placeholder="" required>
-            </div>
-            <div class="input-container">
+            <span class="close" onclick="toggleModal()">&times;</span><div class="input-container">
                 <label for="nombre_producto" style="text-align: center;">PRODUCTO</label>
                 <input type="text" id="nombre_producto" name="nombre_producto" placeholder="" required>
             </div>
             <div class="input-container">
-                <label for="descuento_tiempo" style="text-align: center;">DESCUENTO/TIEMPO</label>
-                <input type="text" id="descuento_tiempo" name="descuento_tiempo" placeholder="" required>
+                <label for="stock_producto" style="text-align: center;">STOCK</label>
+                <input type="number" id="stock_producto" name="stock_producto" placeholder="" required>
             </div>
             <div class="input-container">
                 <label for="precio_producto" style="text-align: center;">PRECIO</label>
-                <input type="text" id="descuento_tiempo" name="descuento_tiempo" placeholder="" required>
+                <input type="number" id="precio_producto" name="precio_producto" placeholder="" required>
             </div>
-            <button type="submit" class="submit-button">AGREGAR PRODUCTO</button>
+            <div class="input-container">
+                <label for="precio_producto" style="text-align: center;">CATEGORIA</label>
+                <select name="categoria" id="categoria">
+                    <option value="">Selecciona una categoría</option>
+                    <option value="Aseo">Aseo</option>
+                    <option value="Hogar">Hogar</option>
+                    <option value="Electrodomésticos">Electrodomésticos</option>
+                    <option value="Tecnología">Tecnología</option>
+                    <option value="Ropa">Ropa</option>
+                    <option value="Alimentos">Alimentos</option>
+                    <option value="Bebidas">Bebidas</option>
+                    <option value="Salud y Belleza">Salud y Belleza</option>
+                    <option value="Juguetes">Juguetes</option>
+                    <!-- Agrega más opciones según tus necesidades -->
+                </select>
+            </div>
+            <button type="submit" class="submit-button" onclick="CrearProducto()">AGREGAR PRODUCTO</button>
         </div>
     </div>
-</form>
+
 
 {% endblock %}

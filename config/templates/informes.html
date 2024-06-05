@@ -58,37 +58,27 @@
                 <th>ID</th>
                 <th>IDENTIFICACION</th>
                 <th>NOMBRE</th>
-                <th># FACTURA</th> 
-                <th>ESTADO</th> 
-                <th>DOCUMENTO PDF</th> 
-        
+                <th>FACTURA</th>
+                <th>ESTADO</th>
+                <th>PDF</th>
             </tr>
         </thead>
-
-        <!-- Cuerpo de la tabla -->
-        <tbody id="stock-body">
-            <!-- Filas de datos se agregarán aquí con JavaScript -->
-            {% for Informe in informes %}
-            {% if loop.index % 1 == 0 %} <!-- Agrega un fondo blanco a las filas 1 y 3 -->
-            <tr style="background-color: white;">
-            {% else %}
+        <tbody>
+            {% for informe in informe %}
             <tr>
-            {% endif %}
-                <td>{{ Informe.id }}</td>
-                <td>{{ Informe.identificacion }}</td>
-                <td>{{ Informe.nombre }}</td>
-                <td>{{ Informe.factura }}</td>
-                <td>{{ Informe.estado }}</td>
-                
+                <td>{{ informe.id }}</td>
+                <td>{{ informe.identificacion }}</td>
+                <td>{{ informe.nombre }}</td>
+                <td>{{ informe.factura }}</td>
+                <td>{{ informe.estado }}</td>
                 <td>
-                    <a href="{{ informes.pdf }}"> <button class="action-button"><img src="{{url_for('static', filename ='img/pdf.png')}}" alt="pdf"></button></a> 
+                    <a href="#" onclick="generarPDF({{ informe.id }})">
+                        <img style="width: 30px;" src="{{ url_for('static', filename='img/pdf.png') }}" alt="">
+                    </a>
                 </td>
             </tr>
-            <tr> <!-- Aquí se agrega el espacio -->
-                <td colspan="8">&nbsp;</td> <!-- Colspan para ocupar todas las columnas -->
-            </tr>
             {% endfor %}
-        </tbody>     
+        </tbody>
     </table>
     <!-- Paginación -->
     <div class="pagination">

@@ -9,8 +9,9 @@ class Parametros(bd.Model):
     ganancia = bd.Column(bd.Float)
     iva = bd.Column(bd.Float)
     precio_final = bd.Column(bd.Float)
+    empresa = bd.Column(bd.String(255))
 
-    def __init__(self, nombre, cotizaciones, clientes, compras, informes, parametros, productos, stock, vendedores, empresas, estado):
+    def __init__(self, nombre, cotizaciones, clientes, compras, informes, parametros, productos, stock, vendedores, empresa, estado,):
         self.nombre = nombre
         self.cotizaciones = cotizaciones
         self.clientes = clientes
@@ -20,12 +21,13 @@ class Parametros(bd.Model):
         self.productos = productos
         self.stock = stock
         self.vendedores = vendedores
-        self.empresas = empresas
+        self.empresa = empresa
         self.estado = estado
+    
 
 with app.app_context():
     bd.create_all()
 
 class ParametroSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'nombre', 'cotizaciones', 'clientes', 'compras', 'informes', 'parametros', 'productos', 'stock', 'vendedores', 'empresas', 'estado')
+        fields = ('id', 'nombre', 'cotizaciones', 'clientes', 'compras', 'informes', 'parametros', 'productos', 'stock', 'vendedores', 'empresa', 'estado')

@@ -14,8 +14,9 @@ class Empresa(bd.Model):
     vendedores = bd.Column(bd.Boolean)
     empresas = bd.Column(bd.Boolean)
     estado = bd.Column(bd.String(50))
+    periodo = bd.Column(bd.String(50))
 
-    def __init__(self, nombre, cotizaciones, clientes, compras, informes, parametros, productos, stock, vendedores, empresas, estado):
+    def __init__(self, nombre, cotizaciones, clientes, compras, informes, parametros, productos, stock, vendedores, empresas, estado,periodo):
         self.nombre = nombre
         self.cotizaciones = cotizaciones
         self.clientes = clientes
@@ -27,10 +28,13 @@ class Empresa(bd.Model):
         self.vendedores = vendedores
         self.empresas = empresas
         self.estado = estado
+        self.periodo = periodo
 
 with app.app_context():
     bd.create_all()
-
+ 
 class EmpresaSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'nombre', 'cotizaciones', 'clientes', 'compras', 'informes', 'parametros', 'productos', 'stock', 'vendedores', 'empresas', 'estado')
+        fields = ('id', 'nombre', 'cotizaciones', 'clientes', 'compras', 'informes', 'parametros', 'productos', 'stock', 'vendedores', 'empresas', 'estado','periodo')
+
+

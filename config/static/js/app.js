@@ -77,47 +77,56 @@ $(document).ready(function() {
 function LoginUser() {
     let userIdInput = document.getElementById("idUser");
     let userPassInput = document.getElementById("passUser");
+     
     let userId = userIdInput.value;
     let userPass = userPassInput.value;
-    let endpoint = "validate_user";
+    
+    let endpoint = "/controller/validarUser";
     
     axios.post(endpoint, {
         'user': userId,
         'password': userPass
     })
     .then(function (response) {
-        if (response.data.success) {
-            toastr.success(response.data.message, "Success");
-            userIdInput.style.border = "1px solid green";
-            userIdInput.style.backgroundColor = "rgba(0, 255, 0, 0.1)"; // Fondo verde con opacidad
-            userPassInput.style.border = "1px solid green";
-            userPassInput.style.backgroundColor = "rgba(0, 255, 0, 0.1)"; // Fondo verde con opacidad
-            setTimeout(function() {
-                window.location.href = "/controller/Layout";
-            }, 2000);
+        let role = response.data.rol;
+        
+        if (role === "ADMIN" || role === "EMPRESA" || role === "VENDEDOR") {
+            Swal.fire({
+                icon: 'success',
+                title: '¡Inicio de sesión exitoso!',
+                text: response.data.message,
+                timer: 2000,
+                timerProgressBar: true,
+                showConfirmButton: false
+            }).then(() => {
+                window.location.href = "/panel";
+            });
         } else {
-            if (response.data.message === 'ErrorPass') {
-                userIdInput.style.border = "1px solid green";
-                userIdInput.style.backgroundColor = "rgba(0, 255, 0, 0.1)"; // Fondo verde con opacidad
-                userPassInput.style.border = "1px solid red";
-                userPassInput.style.backgroundColor = "rgba(255, 0, 0, 0.1)"; // Fondo rojo con opacidad
-                
-                // Borra el valor del campo de contraseña
-                userPassInput.value = "";
-                
-                toastr.error('Contraseña Incorrecta', "Error");
-            } else {
-                userIdInput.value ='';
-                userPassInput.value = "";
-                userIdInput.style.border = "1px solid red";
-                userIdInput.style.backgroundColor = "rgba(255, 0, 0, 0.1)";
-                userPassInput.style.border = "1px solid red";
-                userPassInput.style.backgroundColor = "rgba(255, 0, 0, 0.1)";
-                toastr.error('Usuario no existe', "Error");
-            }
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: response.data.message
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    // Si el usuario no existe, resetear la página
+                    location.reload();
+                }
+            });
+            console.error('Rol desconocido:', role);
         }
     })
     .catch(function (error) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Ha ocurrido un error al validar el usuario.'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Si hay un error, borrar el dato de la contraseña
+                userPassInput.value = "";
+                userPassInput.focus();
+            }
+        });
         console.error('Error validating user:', error);
     });
 }

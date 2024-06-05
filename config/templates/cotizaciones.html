@@ -9,20 +9,28 @@
         <!-- Otros datos del usuario a la derecha -->
         <div class="user-details">
             <div class="module-details">
-                <div class="data">
-                    <h4></h4>
-                </div>
-                <div class="label">
-                    <p></p>
-                </div>
-            </div>
-            <div class="module-details">
-                <div class="data">
-                            
-                    <h4>0</h4>
-                </div>
-                <div class="label">
-                    <p>PRODUCTOS AGREGADOS</p>
+                <div  id="carrito" style="border: 1px solid #ccc; border-radius: 5px; padding: 10px;     background-color: #b6b6b62b; margin-bottom: 20px; display: none;" >
+                    <h2 style="text-align: center; margin-bottom: 10px;">CARRITO</h2>
+                    <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #ddd; padding-bottom: 5px; margin-bottom: 5px;">
+                        <div style="flex: 1;"><strong>PRODUCTOS</strong></div>
+                        <div style="flex: 1; text-align: right;"><strong id="totalProductos"></strong></div>
+                    </div>
+                    <div id="listaProductos" style="margin-bottom: 10px;">
+                        <!-- Aquí se mostrarán los productos -->
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <div><strong>Total:</strong></div>
+                        <div id="totalPrecio" style="text-align: right;"><strong id="Total">0.00</strong></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between;">
+                        <button onclick="cotizar()" style="height: 50px;
+                        margin-top: 20px;
+                        border-radius: 20px;
+                        background-color: #A0B8CA;
+                        color: white;
+                        border: none;
+                        width: 200PX;">COTIZAR</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -31,68 +39,259 @@
 
 <!-- Div para el buscador o cualquier otro contenido -->
 <div class="search-bar">
-    <div class="search-dropdown">
-        <select id="search-select">
-            <option value="codigo">Código</option>
-            <option value="producto">Producto</option>
-            <!-- Agrega más opciones según sea necesario -->
-        </select>
-    </div>
+   
     <div class="input-wrapper">
         <input id="lblText" type="text" maxlength="26">
         <img src="{{url_for('static', filename ='img/lupa.png')}}" class="lupa">
     </div>
-
 </div>
-
-
-
-
 
 <div class="bottom-section">
     <table id="stock-table">
         <!-- Encabezado de la tabla -->
         <thead>
             <tr>
+                <th>ID</th>
                 <th>PRODUCTO</th>
-                <th>IMAGEN</th>
-                <th>DESCUENTO</th>
-                <th>PRECIO</th>    
-                <th>ACCIONES</th> 
-               
+                <th>PRECIO</th>
+                <th>STOCK</th>
+                <th>CANTIDAD</th>
+                <th>ACCIONES</th>                                 
             </tr>
         </thead>
-
-        <!-- Cuerpo de la tabla -->
-        <tbody id="stock-body">
-            <!-- Filas de datos se agregarán aquí con JavaScript -->
-            {% for productos in productos %}
-            {% if loop.index % 1 == 0 %} <!-- Agrega un fondo blanco a las filas 1 y 3 -->
-            <tr style="background-color: white;">
-            {% else %}
-            <tr>
-            {% endif %}
-                <td>{{ productos.producto }}</td>
-                <td>{{ productos.imagen }}</td>
-                <td>{{ productos.descuento_tiempo }}</td>
-                <td>{{ productos.precio }}</td>
-                
-                <td>
-                    <a href="/agregar"> <button class="action-button"><img src="{{url_for('static', filename ='img/agregar.png')}}" alt="AGREGAR"></button></a> 
-                    <a href="/quitar"> <button class="action-button"><img src="{{url_for('static', filename ='img/quitar.png')}}" alt="QUITAR"></button></a> 
-                </td>
-            </tr>
-            <tr> <!-- Aquí se agrega el espacio -->
-                <td colspan="8">&nbsp;</td> <!-- Colspan para ocupar todas las columnas -->
-            </tr>
+        
+        <tbody id="productosBody">
+            {% for producto in productos %}
+                {% if producto.stock == 0 %}
+                    <tr class="fila-sin-stock">
+                {% else %}
+                    <tr>
+                {% endif %}
+                    <td>{{ producto.id }}</td>
+                    <td>{{ producto.producto }}</td>
+                    <td>{{ producto.precioFinal }}</td>
+                    <td id="stock{{ producto.id }}">{{ producto.stock }}</td>
+                    <td><input type="number" id="cantidad{{ producto.id }}" min="1" value="1" max="{{ producto.stock }}"></td>
+                    <td style="display: flex; justify-content: center;">
+                        <a id="accion{{ producto.id }}" onclick="manejarCarrito('{{ producto.id }}', '{{ producto.producto }}', '{{ producto.precioFinal }}', '{{ producto.descuento_tiempo }}', '{{ producto.stock }}')"> 
+                            <button class="action-button" style="display: block;"><img src="{{url_for('static', filename ='img/agregar.png')}}" alt="AGREGAR"></button>
+                        </a> 
+                        <a id="quitar{{ producto.id }}" onclick="manejarCarrito('{{ producto.id }}', '{{ producto.producto }}', '{{ producto.precioFinal }}', '{{ producto.descuento_tiempo }}', '{{ producto.stock }}')" style="display: none;"> 
+                            <button class="action-button"><img src="{{url_for('static', filename ='img/quitar.png')}}" alt="QUITAR"></button>
+                        </a> 
+                    </td>
+                </tr>
             {% endfor %}
-        </tbody>     
+        </tbody>
+        
     </table>
-    <!-- Paginación -->
-    <div class="pagination">
-        <button id="prev-page"><img src="{{url_for('static', filename ='img/atras.png')}}" alt="Anterior"></button>
-        <button id="next-page"><img src="{{url_for('static', filename ='img/siguiente.png')}}" alt="Siguiente"></button>
-    </div>
+</div>
+</div>
 </div>
 
+<!-- Floating Cart Preview -->
+<div id="floatingCart" style="position: fixed; right: 20px; top: 20px; width: 300px; background: #fff; border: 1px solid #ccc; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); display: none; z-index: 1000; padding: 10px;">
+<div style="display: flex;"> 
+<h5>Carrito   -    </h5>
+<h5 id="ultimodato">{{ ultimo_numero_factura if ultimo_numero_factura else 0 }}</h5>
+
+</div>
+
+<ul id="listaCarrito" class="list-group mb-3"></ul>
+<h6>Total: $<span id="total">0.00</span></h6>
+<!-- Select Client -->
+<div class="form-group">
+<label for="selectCliente">Cliente</label>
+<select class="form-control" id="selectCliente">
+    {% for cliente in clientes %}
+    <option value="{{ cliente.id }}">{{ cliente.nombre }}</option>
+    {% endfor %}
+</select>
+</div>
+
+<!-- Select Seller -->
+<div class="form-group">
+<form action="">
+<label for="selectVendedor">Vendedor</label>
+<select class="form-control" id="selectVendedor">
+    {% for vendedor in vendedores %}
+    <option value="{{ vendedor.id }}">{{ vendedor.nombre }}</option>
+    {% endfor %}
+</select>
+</div>
+<br>
+<div style="    display: flex;
+justify-content: center;
+align-content: center;
+flex-wrap: nowrap;
+flex-direction: column;"><button type="button" class="btn btn-primary mb-2" onclick="hacerCotizacion()">Hacer Cotización</button>
+    <button type="button" class="btn btn-secondary" onclick="ocultarCarrito()">Cerrar</button></div>
+
+</form>
+</div>
+
+<!-- Resto de tu contenido -->
+</div>
+
+<script>
+const carrito = [];
+
+function hacerCotizacion() {
+const clienteId = document.getElementById('selectCliente').value;
+const vendedorId = document.getElementById('selectVendedor').value;
+const total = document.getElementById('total').textContent;
+const Nfactura = document.getElementById('ultimodato').innerHTML;
+let nameEmpresa = document.getElementById("empresa").innerText;
+
+
+
+if (carrito.length === 0 || !clienteId || !vendedorId) {
+alert('El carrito está vacío, o faltan seleccionar cliente y vendedor.');
+return;
+}
+
+let endpoint = "/controller/hacercotizacion";
+
+axios.post(endpoint, {
+    'clienteId': clienteId,
+    'vendedorId': vendedorId,
+    'telefono': total,
+    'carrito': carrito,
+    'Nfactura': Nfactura,
+    'empresa': nameEmpresa
+})
+.then(function (response) {
+    console.log("Carrito actual: ", carrito);
+    console.log("Respuesta del servidor: ", response);
+    Swal.fire({
+        icon: 'success',
+        title: '¡Cotización realizada con éxito!',
+        text: '¡Gracias por tu compra!',
+        showConfirmButton: false,
+        timer: 2000 // Oculta automáticamente después de 2 segundos
+    }).then(() => {
+        window.location.reload();
+    });
+})
+.catch(function (error) {
+    console.error('Error al crear producto:', error);
+    Swal.fire({
+        icon: 'error',
+        title: '¡Error!',
+        text: 'Hubo un error al procesar la cotización. Por favor, inténtalo de nuevo.',
+        showConfirmButton: true
+    });
+});
+
+
+}
+
+function manejarCarrito(id, producto, precio, descuento, stock) {
+if (productoEnCarrito(id)) {
+quitarDelCarrito(id);
+} else {
+agregarAlCarrito(id, producto, precio, descuento, stock);
+}
+actualizarBoton(id);
+}
+
+function productoEnCarrito(id) {
+return carrito.some(item => item.id === id);
+}
+
+function agregarAlCarrito(id, producto, precio, descuento, stock) {
+const cantidad = document.getElementById(`cantidad${id}`).value;
+if (cantidad <= stock) {
+carrito.push({ id: id, producto: producto, precio: precio, descuento: descuento, cantidad: cantidad, stock: stock });
+actualizarCarrito();
+} else {
+alert('Cantidad supera el stock disponible');
+}
+}
+
+function quitarDelCarrito(id) {
+const index = carrito.findIndex(item => item.id === id);
+if (index !== -1) {
+carrito.splice(index, 1);
+actualizarCarrito();
+}
+}
+
+function actualizarCarrito() {
+const listaCarrito = document.getElementById('listaCarrito');
+const totalCarrito = document.getElementById('total');
+const carritoTitleElement = document.getElementById('carrito');
+listaCarrito.innerHTML = '';
+let total = 0;
+
+carrito.forEach(producto => {
+const itemCarrito = document.createElement('li');
+itemCarrito.className = 'list-group-item';
+itemCarrito.textContent = `${producto.producto} - Precio: ${producto.precio} - Descuento: ${producto.descuento}% - Cantidad: ${producto.cantidad}`;
+listaCarrito.appendChild(itemCarrito);
+const precioConDescuento = producto.precio - (producto.precio * (producto.descuento / 100));
+total += precioConDescuento * producto.cantidad;
+});
+
+totalCarrito.textContent = total.toFixed(2);
+
+if (carrito.length > 0) {
+    carritoTitleElement.style.display = 'block'
+// Muestra el total de productos agregados
+document.getElementById('totalProductos').innerHTML = carrito.length;
+    // Calcula y muestra el total del carrito
+ document.getElementById('Total').innerHTML = total.toFixed(2);
+} else {
+    carritoTitleElement.style.display = 'none'
+}
+}
+
+
+function cotizar(){
+    document.getElementById('floatingCart').style.display = 'block';
+    
+}
+
+function actualizarBoton(id) {
+    const botonAgregar = document.getElementById(`accion${id}`);
+    const botonQuitar = document.getElementById(`quitar${id}`);
+
+    if (productoEnCarrito(id)) {
+        botonAgregar.style.display = 'none';
+        botonQuitar.style.display = 'block';
+    } else {
+        botonAgregar.style.display = 'block';
+        botonQuitar.style.display = 'none';
+    }
+}
+
+
+function ocultarCarrito() {
+document.getElementById('floatingCart').style.display = 'none';
+}
+
+function filtrarProductos() {
+const input = document.getElementById('searchInput');
+const filter = input.value.toLowerCase();
+const rows = document.getElementById('productosBody').getElementsByTagName('tr');
+
+for (let i = 0; i < rows.length; i++) {
+const producto = rows[i].getElementsByTagName('td')[1];
+if (producto) {
+    const txtValue = producto.textContent || producto.innerText;
+    if (txtValue.toLowerCase().indexOf(filter) > -1) {
+        rows[i].style.display = '';
+    } else {
+        rows[i].style.display = 'none';
+    }
+}
+}
+}
+
+
+
+
+
+
+</script>
 {% endblock %}

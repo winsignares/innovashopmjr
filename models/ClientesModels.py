@@ -6,18 +6,20 @@ class Cliente(bd.Model):
     identificacion = bd.Column(bd.String(255))
     nombre = bd.Column(bd.String(255))
     telefono = bd.Column(bd.String(255))
-    compras = bd.Column(bd.Integer)
+    compras = bd.Column(bd.Integer) 
+    empresa = bd.Column(bd.String(255))
 
-    def __init__(self, identificacion, nombre, telefono, compras):
+    def __init__(self, identificacion, nombre, telefono, compras, empresa):
         self.identificacion = identificacion
-        self.cotizaciones = nombre
-        self.clientes = telefono
+        self.nombre = nombre  # Aquí debe ser self.nombre
+        self.telefono = telefono  # Aquí debe ser self.telefono
         self.compras = compras
-        
+        self.empresa = empresa
+
 
 with app.app_context():
     bd.create_all()
 
 class ClienteSchema(ma.Schema):
     class Meta:
-        fields = ('id', 'identificacion', 'nombre', 'telefono', 'compras')
+        fields = ('id', 'identificacion', 'nombre', 'telefono', 'compras','empresa')

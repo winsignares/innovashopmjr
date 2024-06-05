@@ -19,7 +19,6 @@
             <div class="module-details">
                 <div class="data">
                     {% set total_clientes = clientes|length %}
-             
                     <h4>{{ total_clientes }}</h4>
                 </div>
                 <div class="label">
@@ -38,17 +37,24 @@
             <option value="producto">Producto</option>
             <!-- Agrega más opciones según sea necesario -->
         </select>
+        
     </div>
+ 
     <div class="input-wrapper">
         <input id="lblText" type="text" maxlength="26">
         <img src="{{url_for('static', filename ='img/lupa.png')}}" class="lupa">
     </div>
-   
+
+    <div><input
+        name=""
+        id="btnCrear"
+        class="btn btn-primary"
+        type="button"
+        value="CREAR"
+        onclick="toggleModal()"
+    />
+    </div>
 </div>
-
-
-
-
 
 <div class="bottom-section">
     <table id="stock-table">
@@ -61,7 +67,6 @@
                 <th>TELEFONO</th> 
                 <th>COMPRAS</th> 
                 <th>ACCIONES</th> 
-                
             </tr>
         </thead>
 
@@ -80,9 +85,10 @@
                 <td>{{ cliente.telefono }}</td>
                 <td>{{ cliente.compras }}</td>               
                 <td>
-                    <a href="/eliminar"> <button class="action-button"><img src="{{url_for('static', filename ='img/borrar.png')}}" alt="Eliminar"></button></a> 
-                    <a href="/editar"> <button class="action-button"><img src="{{url_for('static', filename ='img/editar.png')}}" alt="EDITAR"></button></a> 
-                </td>
+            
+                        <button class="action-button btnEliminarCliente" onclick="EliminarCliente('{{ cliente.id }}')"  ><img src="{{url_for('static', filename ='img/borrar.png')}}" alt="Eliminar">
+                    </td>
+                
             </tr>
             <tr> <!-- Aquí se agrega el espacio -->
                 <td colspan="8">&nbsp;</td> <!-- Colspan para ocupar todas las columnas -->
@@ -95,6 +101,28 @@
         <button id="prev-page"><img src="{{url_for('static', filename ='img/atras.png')}}" alt="Anterior"></button>
         <button id="next-page"><img src="{{url_for('static', filename ='img/siguiente.png')}}" alt="Siguiente"></button>
     </div>
+</div>
+
+<div id="modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="toggleModal()">&times;</span>
+       
+        <div class="modal-content">
+            <span class="close" onclick="cerrarModalCrearCliente()">&times;</span>
+            <div class="input-container">
+                <label for="identificacion_cliente">IDENTIFICACIÓN</label>
+                <input type="text" id="identificacion_cliente" name="identificacion_cliente" placeholder="Identificación" required>
+            </div>
+            <div class="input-container">
+                <label for="nombre_cliente">NOMBRE O RAZON SOCIAL</label>
+                <input type="text" id="nombre_cliente" name="nombre_cliente" placeholder="Nombre o Razón Social" required>
+            </div>
+            <div class="input-container">
+                <label for="telefono_cliente">TELÉFONO</label>
+                <input type="text" id="telefono_cliente" name="telefono_cliente" placeholder="Teléfono" required>
+            </div>
+            <button type="button" onclick="CrearCliente()">Crear Cliente</button>
+        </div>
 </div>
 
 {% endblock %}

@@ -1,5 +1,28 @@
 {% extends "layout.html" %}
 {% block body %}
+
+<style>
+    .formulario-modificar {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    display: none;
+}
+
+.formulario-modificar h2 {
+    margin-top: 0;
+}
+
+/* Estilos para los campos de entrada, botones, etc. */
+
+</style>
 <div class="top-section">
     <!-- Div para los datos del usuario -->
     <div class="user-info">
@@ -43,20 +66,8 @@
         <input id="lblText" type="text" maxlength="26">
         <img src="{{url_for('static', filename ='img/lupa.png')}}" class="lupa">
     </div>
-    <div><input
-        name=""
-        id="btnCrear"
-        class="btn btn-primary"
-        type="button"
-        value="CREAR"
-        onclick="toggleModal()"
-    />
-    </div>
+
 </div>
-
-
-
-
 
 <div class="bottom-section">
     <table id="stock-table">
@@ -64,12 +75,11 @@
         <thead>
             <tr>
                 <th>ID</th>
-                <th>CODIGO</th>
                 <th>PRODUCTO</th>
-                <th>PRECIO VENTA</th> 
-                <th>$ GANANCIA </th> 
-                <th>% IVA</th> 
-                <th>PRECIO FINAL</th> 
+                <th>PRECIO VENTA</th>
+                <th>% GANANCIA</th>
+                <th>% IVA</th>
+                <th>PRECIO FINAL</th>
                 <th>ACCIONES</th>
             </tr>
         </thead>
@@ -77,22 +87,28 @@
         <!-- Cuerpo de la tabla -->
         <tbody id="stock-body">
             <!-- Filas de datos se agregarán aquí con JavaScript -->
-            {% for parametros in parametros %}
+            {% for productos in productos %}
             {% if loop.index % 1 == 0 %} <!-- Agrega un fondo blanco a las filas 1 y 3 -->
             <tr style="background-color: white;">
             {% else %}
             <tr>
             {% endif %}
-                <td>{{ parametros.id }}</td>
-                <td>{{ parametros.codigo }}</td>
-                <td>{{ parametros.producto }}</td>
-                <td>{{ parametros.precio }}</td>
-                <td>{{ parametros.ganancia }}</td>
-                <td>{{ parametros.iva }}</td>
-                <td>{{ parametros.precio }}</td>
+            <td>{{ productos.id }}</td>
+            <td>{{ productos.producto }}</td>
+            <td>{{ productos.precio}}</td>
+            <td>{{ productos.ganancia }}</td>
+            <td>{{ productos.iva }}</td>
+            <td>{{ productos.precioFinal }}</td>
                 <td>
-                    <a href="/eliminar"> <button class="action-button"><img src="{{url_for('static', filename ='img/borrar.png')}}" alt="Eliminar"></button></a> 
-                    <a href="/editar"> <button class="action-button"><img src="{{url_for('static', filename ='img/editar.png')}}" alt="EDITAR"></button></a> 
+                    <button class="action-button btnModificarParametros" 
+                    data-id="{{ productos.id }}"
+                    data-producto="{{ productos.producto }}"
+                    data-precio="{{ productos.precio }}"
+                    data-ganancia="{{ productos.ganancia }}"
+                    data-iva="{{ productos.iva }}"
+                    data-precio-final="{{ productos.precioFinal }}">
+                <img src="{{url_for('static', filename ='img/editar.png')}}" alt="EDITAR">
+            </button>
                 </td>
             </tr>
             <tr> <!-- Aquí se agrega el espacio -->
@@ -108,4 +124,87 @@
     </div>
 </div>
 
+<style>
+    
+</style>
+<div id="formulario-modificar" class="formulario-modificar">
+    <h2>Modificar Producto</h2>
+    <div id="form-modificar" class="form-modificar" style="display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: stretch;">
+        <!-- Campo ID (deshabilitado) -->
+        <div style="display: none;" ><label for="id">ID:</label>
+        <input type="text" id="idEditar" name="id" readonly disabled ></div>
+        
+
+        <!-- Campo Producto (deshabilitado) -->
+        <label for="producto">Producto:</label>
+        <input type="text" id="productoEditar" name="producto" readonly disabled>
+
+        <!-- Campo Precio Venta (deshabilitado) -->
+        <label for="precio_venta">Precio Venta:</label>
+        <input type="text" id="precioEditar" name="precio_venta" readonly disabled>
+
+        <!-- Campo % Ganancia (editable) -->
+        <label for="ganancia">Ganancia (%):</label>
+        <input type="number" id="gananciaEditar" name="ganancia" required style="height: 50px;
+        border-radius: 20px;
+        border: #D9D9D9 1px solid;
+        padding: 10px;">
+
+        <!-- Campo % IVA (editable) -->
+        <label for="iva">IVA (%):</label>
+        <input type="number" id="ivaEditar" name="iva" required style="height: 50px;
+        border-radius: 20px;
+        border: #D9D9D9 1px solid;
+        padding: 10px;">
+
+        <!-- Campo Precio Final (deshabilitado) -->
+        <label for="precio_final">Precio Final:</label>
+        <input type="text" id="precioFinalEditar" name="precio_final" readonly disabled>
+        <br>
+
+        <!-- Otros campos del formulario -->
+
+        <button type="submit" class="submit-button" style="width:100%;" onclick="EditarParametros()">Guardar cambios</button>
+        <button type="button" class="submit-button" style="width:100%;" onclick="cerrarFormularioModificar()">Cancelar</button>
+    </div>
+</div>
+
+<script>
+    function mostrarFormularioModificar() {
+    document.getElementById("formulario-modificar").style.display = "block";
+}
+
+function cerrarFormularioModificar() {
+    document.getElementById("formulario-modificar").style.display = "none";
+}
+
+
+document.querySelectorAll('.btnModificarParametros').forEach(btn => {
+    btn.addEventListener('click', function(event) {
+        const button = event.currentTarget;
+        const id = button.dataset.id;
+        const producto = button.dataset.producto;
+        const precio = button.dataset.precio;
+        const ganancia = button.dataset.ganancia;
+        const iva = button.dataset.iva;
+        const precioFinal = button.dataset.precioFinal;
+        console.log(ganancia);
+
+        // Llenar el formulario con los datos del producto
+        document.getElementById('idEditar').value = id;
+        document.getElementById('productoEditar').value = producto;
+        document.getElementById('precioEditar').value = precio;
+        document.getElementById('gananciaEditar').value = ganancia;
+        document.getElementById('ivaEditar').value = iva;
+        document.getElementById('precioFinalEditar').value = precioFinal;
+
+        // Mostrar el formulario flotante para modificar
+        mostrarFormularioModificar();
+    });
+});
+
+</script>
 {% endblock %}

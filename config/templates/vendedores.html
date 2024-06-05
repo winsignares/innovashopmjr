@@ -53,9 +53,26 @@
     </div>
 </div>
 
-
-
-
+<div id="modal" class="modal" style="display: none;">
+    <div class="modal-content">
+        <span class="close" onclick="toggleModal()">&times;</span>
+       
+            <div class="input-container">
+                <label for="identificacion_vendedor">IDENTIFICACIÓN</label>
+                <input type="text" id="identificacion_vendedor" name="identificacion_vendedor" placeholder="" required>
+            </div>
+            <div class="input-container">
+                <label for="nombre_vendedor">NOMBRE VENDEDOR</label>
+                <input type="text" id="nombre_vendedor" name="nombre_vendedor" placeholder="" required>
+            </div>
+            <div class="input-container">
+                <label for="telefono_vendedor">TELÉFONO</label>
+                <input type="text" id="telefono_vendedor" name="telefono_vendedor" placeholder="" required>
+            </div>
+            <button type="submit" class="submit-button" onclick="CrearVendedor()">CREAR VENDEDOR</button>
+       
+    </div>
+</div>
 
 <div class="bottom-section">
     <table id="stock-table">
@@ -88,8 +105,7 @@
                 <td>{{ vendedores.ventas }}</td>
                 
                 <td>
-                    <a href="/eliminar"> <button class="action-button"><img src="{{url_for('static', filename ='img/borrar.png')}}" alt="Eliminar"></button></a> 
-                    <a href="/editar"> <button class="action-button"><img src="{{url_for('static', filename ='img/editar.png')}}" alt="EDITAR"></button></a> 
+                    <button class="action-button btnEliminarVendedor" onclick="EliminarVendedor('{{ vendedores.id }}')"  ><img src="{{url_for('static', filename ='img/borrar.png')}}" alt="Eliminar">
                 </td>
             </tr>
             <tr> <!-- Aquí se agrega el espacio -->
@@ -104,26 +120,5 @@
         <button id="next-page"><img src="{{url_for('static', filename ='img/siguiente.png')}}" alt="Siguiente"></button>
     </div>
 </div>
-<form id="vendedor_formulario" action="/crear_vendedor" method="POST">
-    <div id="modal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="toggleModal()">&times;</span>
-            <div class="input-container">
-                <label for="identificacion_vendedor" style="text-align: center;">IDENTIFICACIÓN</label>
-                <input type="text" id="identificacion_vendedor" name="identificacion_vendedor" placeholder="" required>
-            </div>
-            <div class="input-container">
-                <label for="nombre_vendedor" style="text-align: center;">NOMBRE VENDEDOR</label>
-                <input type="text" id="nombre_vendedor" name="nombre_vendedor" placeholder="" required>
-            </div>
-            <div class="input-container">
-                <label for="telefono_vendedor" style="text-align: center;">TELÉFONO</label>
-                <input type="text" id="telefono_vendedor" name="telefono_vendedor" placeholder="" required>
-            </div>
-            
-            <button type="submit" class="submit-button">CREAR VENDEDOR</button>
-        </div>
-    </div>
-</form>
 
 {% endblock %}

@@ -1,4 +1,4 @@
-from flask import Blueprint, Flask, render_template, request, session,redirect,url_for
+from flask import Blueprint, Flask, render_template, request
 from config.db import bd, ma, app
 from models.ComprasModels import Compra, CompraSchema 
 
@@ -10,18 +10,16 @@ ruta_Compras = Blueprint("ruta_Compras", __name__)
 
 @ruta_Compras.route('/Compras')
 def indexCompras():
-    if 'username' in session:
-        # Si hay una sesión activa, renderizar la página de diseño con el nombre de usuario
-        username = session['username']
-        rol = session['rol']
-        compras = Compra.query.all()
-        return render_template("Compras.html", compras=compras,username=username, rol = rol)
-    else:
-        # Si no hay una sesión activa, redirigir al usuario al inicio de sesión
-        return redirect(url_for('ruta_Login.indexLogin'))  
+    compras = Compra.query.all()
+    return render_template("Compras.html")
 
-
-
-   
+@ruta_Compras.route('/EmpresaCompras')
+def EmpresaCompras():
     
+    return render_template("Empresas/comprasEmpresas.html")
 
+
+@ruta_Compras.route('/VendedorCompras')
+def VendedorCompras():
+    
+    return render_template("Vendedor/comprasVendedor.html")

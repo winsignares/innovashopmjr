@@ -8,17 +8,18 @@ class Stocks(bd.Model):
     cotizacion = bd.Column(bd.Integer)
     stock = bd.Column(bd.Integer)
     pdf = bd.Column(bd.String(255))
-
-    def __init__(self, identificacion, nombre, cotizacion, stock, pdf):
+    empresa = bd.Column(bd.String(255))
+    def __init__(self, identificacion, nombre, cotizacion, stock, pdf,empresa):
         self.nombre = nombre
         self.identificacion = identificacion
         self.cotizacion = cotizacion
         self.stock = stock
         self.pdf = pdf
+        self.empresa = empresa
 
 with app.app_context():
     bd.create_all()
 
 class Stockchema(ma.Schema):
     class Meta:
-        fields = ('id', 'identificacion', 'nombre', 'cotizacion', 'stock', 'pdf')
+        fields = ('id', 'identificacion', 'nombre', 'cotizacion', 'stock', 'pdf','empresa')

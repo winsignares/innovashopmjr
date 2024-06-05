@@ -66,7 +66,7 @@
             <tr>
                 <th>ID</th>
                 <th>NOMBRE</th>
-                <th>MODULOS</th>
+                <th>PERIODO /MESES</th>
                 <th>ESTADO</th> 
                 <th>ACCIONES</th> 
             
@@ -78,7 +78,7 @@
         <!-- Cuerpo de la tabla -->
 <tbody id="stock-body">
     <!-- Filas de datos se agregarán aquí con JavaScript -->
-    {% for empresa in empresas %}
+    {% for empresa in empresa %}
     {% if loop.index % 1 == 0 %} <!-- Agrega un fondo blanco a las filas 1 y 3 -->
     <tr style="background-color: white;">
     {% else %}
@@ -86,17 +86,8 @@
     {% endif %}
         <td class="empresa-id">{{ empresa.id }}</td>
         <td>{{ empresa.nombre }}</td>
-        <td class="modulo-buttons">
-            <button class="modulos" title="COTIZACIONES" id="cotizaciones" data-valor="{{empresa.cotizaciones}}" ><img src="{{url_for('static', filename ='img/Modulos/cotizaciones.png')}}" alt=""></button>
-            <button class="modulos" title="CLIENTES" id="clientes" data-valor="{{ empresa.clientes }}"  ><img src="{{url_for('static', filename ='img/Modulos/cliente.png')}}" alt=""></button>
-            <button class="modulos" title="COMPRAS" id="compras" data-valor="{{ empresa.compras }}"><img src="{{url_for('static', filename ='img/Modulos/compras.png')}}" alt=""></button>
-            <button class="modulos" title="INFORMES" id="informes" data-valor="{{ empresa.informes }}"><img src="{{url_for('static', filename ='img/Modulos/informe.png')}}" alt=""></button>
-            <button class="modulos" title="PARAMETROS" id="parametros" data-valor="{{ empresa.parametros }}"><img src="{{url_for('static', filename ='img/Modulos/parametros.png')}}" alt=""></button>
-            <button class="modulos" title="PRODUCTOS" id="productos" data-valor="{{ empresa.productos }}"><img src="{{url_for('static', filename ='img/Modulos/productos.png')}}" alt=""></button>
-            <button class="modulos" title="STOCK" id="stock" data-valor="{{ empresa.stock }}"><img src="{{url_for('static', filename ='img/Modulos/stock.png')}}" alt=""></button>
-            <button class="modulos" title="VENDEDORES" id="vendedores" data-valor="{{ empresa.vendedores }}"><img src="{{url_for('static', filename ='img/Modulos/vendedor.png')}}" alt=""></button>
-            <button class="modulos" title="EMPRESAS" id="empresas" data-valor="{{ empresa.empresas }}"><img src="{{url_for('static', filename ='img/Modulos/empresas.png')}}" alt=""></button>
-        </td>       
+        <td>{{ empresa.periodo }} </td>
+       
     </td>
         
         <td>
@@ -104,8 +95,8 @@
         </td>
         
         <td>
-            <a href="/eliminar"> <button class="action-button"><img src="{{url_for('static', filename ='img/borrar.png')}}" alt="Eliminar"></button></a> 
-            <a href="/editar"> <button class="action-button"><img src="{{url_for('static', filename ='img/editar.png')}}" alt="EDITAR"></button></a> 
+             <button class="action-button btnEliminarEmpresa" data-id="{{ empresa.id }}"><img src="{{url_for('static', filename ='img/borrar.png')}}" alt="Eliminar"></button></a> 
+             <button class="action-button btnEditarEmpresa" data-id="{{ empresa.id }}" data-nombre="{{ empresa.nombre }}" data-estado="{{ empresa.estado }}" data-periodo="{{ empresa.periodo }}"><img src="{{url_for('static', filename ='img/editar.png')}}" alt="EDITAR"></button></a> 
         </td>
     </tr>
     <tr> <!-- Aquí se agrega el espacio -->
@@ -121,7 +112,6 @@
         <button id="next-page"><img src="{{url_for('static', filename ='img/siguiente.png')}}" alt="Siguiente"></button>
     </div>
 </div>
-<form id="empresa_formulario" action="/crear_empresa" method="POST">
     <div id="modal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="toggleModal()">&times;</span>
@@ -131,60 +121,73 @@
             </div>
             <div class="input-container">
                 <label for="periodo_actividad" style="text-align: center;">PERIODO DE ACTIVIDAD</label>
-                <input type="text" id="periodo_actividad" name="periodo_actividad" placeholder="" required>
+                <input type="text" id="periodo_actividad" name="periodo_actividad" placeholder="MESES" required>
             </div>
-            <div id="checkboxes" class="checkbox-container">
-               <!-- Div para contener los checkboxes -->
-            <div id="checkboxes" style="display: flex;">
-                <!-- Imágenes de checkbox -->
-                <div class="box-checkbox" >
-                    <img src="{{url_for('static', filename ='img/Modulos/cotizaciones.png')}}" alt="Checkbox" class="checkbox-image">
-                <input type="checkbox" id="aspecto1" name="aspecto1">
-                </div>
-    
-                <div class="box-checkbox" >
-                    <img src="{{url_for('static', filename ='img/Modulos/cliente.png')}}" alt="Checkbox" class="checkbox-image">
-                <input type="checkbox" id="aspecto1" name="aspecto1">
-                </div>
-    
-                <div class="box-checkbox" >
-                    <img src="{{url_for('static', filename ='img/Modulos/informe.png')}}" alt="Checkbox" class="checkbox-image">
-                <input type="checkbox" id="aspecto1" name="aspecto1">
-                </div>
-    
-                <div class="box-checkbox" >
-                    <img src="{{url_for('static', filename ='img/Modulos/parametros.png')}}" alt="Checkbox" class="checkbox-image">
-                <input type="checkbox" id="aspecto1" name="aspecto1">
-                </div>
-                <div class="box-checkbox" >
-                    <img src="{{url_for('static', filename ='img/Modulos/productos.png')}}" alt="Checkbox" class="checkbox-image">
-                <input type="checkbox" id="aspecto1" name="aspecto1">
-                </div>
-                <div class="box-checkbox" >
-                    <img src="{{url_for('static', filename ='img/Modulos/stock.png')}}" alt="Checkbox" class="checkbox-image">
-                <input type="checkbox" id="aspecto1" name="aspecto1">
-                </div>
-                <div class="box-checkbox" >
-                    <img src="{{url_for('static', filename ='img/Modulos/vendedor.png')}}" alt="Checkbox" class="checkbox-image">
-                <input type="checkbox" id="aspecto1" name="aspecto1">
-                </div>
-                <div class="box-checkbox" >
-                    <img src="{{url_for('static', filename ='img/Modulos/empresas.png')}}" alt="Checkbox" class="checkbox-image">
-                <input type="checkbox" id="aspecto1" name="aspecto1">
-                </div>
-                
-            
-        </div>
+
+            <div class="input-container">
+                <label for="periodo_actividad" style="text-align: center;">PERIODO DE ACTIVIDAD</label>
+                <select name="ESTADO" id="ESTADO">
+                    <option value="ACTIVO">ACTIVO</option>
+                    <option value="INACTIVO">INACTIVO</option>
+                </select>
             </div>
-            <button type="submit" class="submit-button">CREAR</button>
+            <button type="submit" class="submit-button" onclick="CrearEmpresa()">CREAR</button>
+            </div>
+          
         </div>
     </div>
-</form>
+
+    <div id="modalEditar" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cerrarFormularioEditar()">&times;</span>
+            <div class="input-container">
+                <label for="nombre_empresa_editar" style="text-align: center;">NOMBRE EMPRESA</label>
+                <input type="text" id="nombre_empresa_editar" name="nombre_empresa_editar" placeholder="" required>
+            </div>
+            <div class="input-container">
+                <label for="periodo_actividad_editar" style="text-align: center;">PERIODO DE ACTIVIDAD</label>
+                <input type="text" id="periodo_actividad_editar" name="periodo_actividad_editar" placeholder="MESES" required>
+            </div>
+    
+            <div class="input-container">
+                <label for="estado_editar" style="text-align: center;">ESTADO</label>
+                <select name="estado_editar" id="estado_editar">
+                    <option value="ACTIVO">ACTIVO</option>
+                    <option value="INACTIVO">INACTIVO</option>
+                </select>
+            </div>
+            <input type="hidden" id="id_empresa_editar" name="id_empresa_editar">
+            <button type="submit" class="submit-button" onclick="EditarEmpresa()">GUARDAR CAMBIOS</button>
+        </div>
+    </div>
+    
 
 
 
 
+  <script>document.querySelectorAll('.btnEditarEmpresa').forEach(item => {
+    item.addEventListener('click', event => {
+        const button = event.currentTarget;
+        const id = button.dataset.id;
+        const nombre = button.dataset.nombre;
+        const estado = button.dataset.estado;
+        const periodo = button.dataset.periodo;
+
+        document.getElementById('nombre_empresa_editar').value = nombre;
+        document.getElementById('periodo_actividad_editar').value = periodo;
+        document.getElementById('estado_editar').value = estado;
+        document.getElementById('id_empresa_editar').value = id;
 
   
+        mostrarFormularioEditar();
+    });
+
+});
+function
+mostrarFormularioEditar() {
+    document.getElementById("modalEditar").style.display = "block";
+}
+
+</script>
 
 {% endblock %}
